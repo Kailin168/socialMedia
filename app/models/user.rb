@@ -29,7 +29,8 @@ class User < ApplicationRecord
   
   def feed
     following_ids = "SELECT followee_id FROM follows WHERE follower_id = :user_id"
-    Post.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)   
+    Post.where("user_id IN (#{following_ids})", user_id: id).order(updated_at: :desc).limit(20)
+
   end
   
 end
