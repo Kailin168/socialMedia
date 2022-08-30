@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+  resources :likes
+  resources :follows
+  resources :comments
+  resources :posts
+  resources :users
   
-  # Routing logic: fallback requests for React Router.
-  # Leave this here to help deploy your app later!
+  post '/users/:id/follow', to: "users#follow", as: "follow_user"
+  post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
+
+
+
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end
