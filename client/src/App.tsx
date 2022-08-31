@@ -1,32 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import Home from './Pages/Home';
+import SignIn from './Pages/SignIn';
+import CreateAccount from './Pages/CreateAccount';
+import NotFound from './Pages/NotFound';
+
+import { ProtectedRoute } from './utils/PrivateRoute';
+import AuthProvider from './contexts/AuthContext';
+import { AuthContext } from './contexts/contexts';
+
 import './App.css';
+import './styles.css';
 
 function App() {
+  const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    fetch('/me')
+      .then((res) => {
+        if (res.ok) {
+          res.json()
+            .then((data) => {
+              auth.setUser(data);
+              // navigate('/home');
+            });
+        }
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-          <h1 className="text-3xl font-bold underline">
-            Hello world!!!
-          </h1>
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/createAccount" element={<CreateAccount />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      {/* <Footer /> */}
+
+    </AuthProvider>
   );
 }
 

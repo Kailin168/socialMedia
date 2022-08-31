@@ -1,3 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :password_digest, :first_name, :last_name, :email, :profile_image, :bio, :country, :language
+  attributes :id, :username, :name, :email, :profile_image, :bio, :country, :language, :follower_count, :followee_count, :feed
+
+  has_many :posts
 end
