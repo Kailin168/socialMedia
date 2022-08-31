@@ -19,6 +19,9 @@ export default function Navbar() {
     <div className="flex text-white justify-center bg-black mx-auto text-lg">
       <ul className="flex">
         <button type="button" onClick={() => navigate('/')} className="py-5 px-10 font-semibold hover:text-purple-700 transition duration-300">Home</button>
+        <button type="button" onClick={() => navigate('/')} className="py-5 px-10 font-semibold hover:text-purple-700 transition duration-300">Notification</button>
+        <button type="button" onClick={() => navigate('/')} className="py-5 px-10 font-semibold hover:text-purple-700 transition duration-300">Likes</button>
+        <button type="button" onClick={() => navigate('/')} className="py-5 px-10 font-semibold hover:text-purple-700 transition duration-300">Setting</button>
         <button type="button" onClick={handleLogout} className="py-5 px-10 font-semibold hover:text-purple-700 transition duration-300">Sign Out</button>
       </ul>
     </div>

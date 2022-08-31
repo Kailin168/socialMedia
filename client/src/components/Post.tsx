@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Likes() {
+export default function Post() {
   return (
     <div>
-      All your likes
+       New Post
     </div>
   );
 }
