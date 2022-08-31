@@ -18,11 +18,6 @@ class UsersController < ApplicationController
     user = User.create!(user_params)
     session[:user_id] = user.id
     render json: user, status: :created
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /users/1
