@@ -8,10 +8,18 @@ import Rightsidebar from '../components/Rightsidebar';
 export default function Home() {
   return (
     <div>
-      <Feed />
       <Navbar />
-      <Leftsidebar />
-      <Rightsidebar />
+      <div className="flex">
+        <div className="items-start;">
+          <Leftsidebar />
+        </div>
+        <div className="flex-none w-64 items-center;">
+          <Feed />
+        </div>
+        <div className="items-end;">
+          <Rightsidebar />
+        </div>
+      </div>
     </div>
   );
 }

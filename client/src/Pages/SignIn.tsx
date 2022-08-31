@@ -89,6 +89,7 @@ function SignIn() {
           <input type="submit" />
         </form>
       </div>
+      <button type="button" onClick={() => { navigate('/createAccount'); }}>Do not have an account? Register here</button>
     </div>
   );
 }
