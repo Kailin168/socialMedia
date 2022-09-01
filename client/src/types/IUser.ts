@@ -30,3 +30,5 @@ export const EmptyUserValue = {
   profile_image: '',
   username: '',
 } as IUser;
+
+// age?: number | string

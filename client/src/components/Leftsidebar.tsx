@@ -7,28 +7,45 @@ export default function Leftsidebar() {
   return (
     <div>
       <div>
-        <div>
-          <div>
-            @username:
-            {' '}
-            {user.username}
-          </div>
-          <div>Name : *****</div>
-          <div>
-            Country:
-          </div>
+        <div className="flex items-center justify-center mb-3">
+          <img
+            className="rounded-full border-solid border-2 border-sky-200"
+            width="150"
+            src={user.profile_image}
+            alt="ProfileImage"
+          />
         </div>
-        <ul>
-          <li>
-            <div>Followers</div>
-          </li>
-          <li>
-            <div>Following</div>
-            <div>6758</div>
-          </li>
-          <li>*****</li>
-        </ul>
+        <div>
+          @
+          {user.username}
+        </div>
+        <div>
+          Language:
+          {user.language}
+
+        </div>
+        <div>
+          Country:
+          {user.country}
+        </div>
       </div>
+      <ul>
+        <li>
+          <div>
+            Followers:
+            {user.followee_count}
+          </div>
+        </li>
+        <li>
+          <div>
+            Following:
+            {user.follower_count}
+
+          </div>
+
+        </li>
+
+      </ul>
     </div>
   );
 }

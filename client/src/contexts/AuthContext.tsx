@@ -17,7 +17,6 @@ function AuthProvider({ children }: Props) {
   const isLoggedInFromCookie = (Cookies.get('isLoggedIn') || '') === 'true';
   const isLoggedIn = isLoggedInFromCookie || (user.id !== -1 && user.username.length > 0);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleLogin = (userFromServer: IUser) => {
     setUser(userFromServer);
     Cookies.set('isLoggedIn', 'true');
