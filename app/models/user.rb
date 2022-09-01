@@ -13,11 +13,10 @@ class User < ApplicationRecord
   has_many :followers, through: :following_users
 
 
-  validates :username, uniqueness: { case_sensitive: true }
-  validates :username, presence: true
-  validates :name, presence: true
-  validates :password_digest, presence: true
+  validates :username, :email, uniqueness: true
+  validates :username, :name, :email, presence: true
   validates :bio, presence: true
+  validates :username, :password, length: { in: 3..15 }
   
   def follower_count
     followers.count

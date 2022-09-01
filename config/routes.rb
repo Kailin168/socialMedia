@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   post '/login', to: 'sessions#create'
 
+  post '/create_user', to: 'users#create'
+
   get '/me', to: 'sessions#show'
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
