@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../contexts/contexts';
 
 export default function Leftsidebar() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div>
       <div>
         <div>
-          <div>@username</div>
+          <div>
+            @username:
+            {' '}
+            {user.username}
+          </div>
           <div>Name : *****</div>
           <div>
             Country:

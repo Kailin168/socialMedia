@@ -1,19 +1,11 @@
 import React, {
   useContext,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../contexts/contexts';
 
 function Logout() {
-  const { setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    fetch('/logout', { method: 'DELETE' });
-    setUser({});
-    navigate('/login');
-  };
+  const { handleLogout } = useContext(AuthContext);
 
   return (
     <div>

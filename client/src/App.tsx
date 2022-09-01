@@ -5,16 +5,19 @@ import Home from './Pages/Home';
 import SignIn from './Pages/SignIn';
 import CreateAccount from './Pages/CreateAccount';
 import NotFound from './Pages/NotFound';
+import LoggedInPageLayout from './Pages/LoggedInPageLayout';
+import Notifications from './components/Notification';
+import Likes from './components/Likes';
+import Setting from './components/Setting';
 
 import { ProtectedRoute } from './utils/PrivateRoute';
-import AuthProvider from './contexts/AuthContext';
 import { AuthContext } from './contexts/contexts';
 
 import './App.css';
 import './styles.css';
 
 function App() {
-  const auth = useContext(AuthContext);
+  const { handleLogin, handleLogout, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     fetch('/me')
@@ -22,25 +25,36 @@ function App() {
         if (res.ok) {
           res.json()
             .then((data) => {
-              auth.setUser(data);
+              handleLogin(data);
               // navigate('/home');
             });
+        } else {
+          handleLogout();
         }
       });
   }, []);
 
+  if (isLoggedIn) {
+    return (
+      <LoggedInPageLayout>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+          <Route path="/likes" element={<ProtectedRoute><Likes /></ProtectedRoute>} />
+          <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/createAccount" element={<CreateAccount />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </LoggedInPageLayout>
+    );
+  }
   return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/createAccount" element={<CreateAccount />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
-      {/* <Footer /> */}
-
-    </AuthProvider>
+    <Routes>
+      <Route path="/login" element={<SignIn />} />
+      <Route path="/createAccount" element={<CreateAccount />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 

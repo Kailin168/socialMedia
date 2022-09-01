@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/contexts';
 
 function SignIn() {
-  const { setUser } = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -43,7 +43,7 @@ function SignIn() {
             .then((data) => {
               console.log(data);
               setErrorMessage('');
-              setUser(data);
+              handleLogin(data);
               navigate('/');
             });
         } else {

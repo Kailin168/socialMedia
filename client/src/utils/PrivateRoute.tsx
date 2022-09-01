@@ -14,3 +14,8 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isLoggedIn } = useContext(AuthContext);
   return isLoggedIn ? children : <Navigate to="/login" />;
 }
+
+export function ShowIfLogin({ children }: ProtectedRouteProps) {
+  const { isLoggedIn } = useContext(AuthContext);
+  return isLoggedIn ? children : null;
+}

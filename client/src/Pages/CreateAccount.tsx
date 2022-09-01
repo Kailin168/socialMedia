@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/contexts';
 
 function CreateAccount() {
-  const { setUser } = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -68,7 +68,7 @@ function CreateAccount() {
           res.json()
             .then((data) => {
               setErrorMessage('');
-              setUser(data);
+              handleLogin(data);
               navigate('/');
             });
         } else {

@@ -21,6 +21,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "tsconfig.eslint.json"  ]
+    "src",
+    "tsconfig.eslint.json"
+  ]
 }
