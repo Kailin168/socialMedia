@@ -10,7 +10,7 @@ export default function Feed() {
         alt=""
       />
 
-      Comment
+      Your new feed
 
       {' '}
       Share
