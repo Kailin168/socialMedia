@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   post '/create_comment', to: 'comments#create'
 
+  get '/all_user', to: 'users#index'
+
   get '/feed', to: 'users#feed'
 
   get '/liked_post', to: 'users#liked_post'
