@@ -25,6 +25,7 @@ class User < ApplicationRecord
   def followee_count
     followees.count
   end
+
   
   def feed
     following_ids = "SELECT followee_id FROM follows WHERE follower_id = :user_id"
