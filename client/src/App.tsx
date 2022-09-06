@@ -9,6 +9,7 @@ import LoggedInPageLayout from './Pages/LoggedInPageLayout';
 import Notifications from './components/Notification';
 import Likes from './components/Likes';
 import Setting from './components/Setting';
+import ProfileDetails from './components/ProfileDetails';
 
 import { ProtectedRoute } from './utils/PrivateRoute';
 import { AuthContext } from './contexts/contexts';
@@ -28,7 +29,7 @@ function App() {
               handleLogin(data);
               // navigate('/home');
             });
-        } else {
+        } else if (res.status !== 500) {
           handleLogout();
         }
       });
@@ -42,6 +43,7 @@ function App() {
           <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
           <Route path="/likes" element={<ProtectedRoute><Likes /></ProtectedRoute>} />
           <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
+          <Route path="/setting" element={<ProtectedRoute><ProfileDetails /></ProtectedRoute>} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/createAccount" element={<CreateAccount />} />
           <Route path="*" element={<NotFound />} />

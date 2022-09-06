@@ -1,26 +1,95 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../contexts/contexts';
+import React, {
+  useEffect, useState, ChangeEvent, FormEvent, useContext,
+} from 'react';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-export default function Feed() {
+import { AuthContext } from '../contexts/contexts';
+import { IPost } from '../types/IPost';
+
+interface Props {
+  post: IPost;
+}
+
+export default function FeedCard({ post }: Props) {
   const { user } = useContext(AuthContext);
 
-  return (
+  const [comment, setComment] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
+  const handleComment = (e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value);
+
+  useEffect(() => {
+    setComment('');
+  }, []);
+
+  const handleCommentSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const newComment = {
+      comment,
+      post_id: post.id,
+    };
+    fetch('/create_comment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accepts: 'application/json',
+      },
+      body: JSON.stringify(newComment),
+    })
+      .then((res) => {
+        if (res.ok) {
+          res.json()
+            .then(() => {
+              setErrorMessage('');
+              setComment('');
+            });
+        } else {
+          res.json()
+            .then(({ errors }) => {
+              setErrorMessage(errors?.[0]);
+            });
+        }
+      });
+  };
+
+  return (
     <div className="max-w-lg rounded overflow-hidden shadow-lg">
       <div className="flex justify-center mt-5">
-        <img className="w-3/4" src={user.profile_image} alt="Sunset in the mountains" />
+        <img className="w-3/4" src={post.media ? post.media : ''} alt="feed" />
       </div>
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+        <div className="font-bold text-xl mb-2">{post.user_id}</div>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}
+        >
+          {post.likes.some((like) => like.user_id === user.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+          {post.like_count}
+        </div>
         <p className="text-gray-700 text-base">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+          {post.content ? post.content : ''}
         </p>
       </div>
       <div className="mr-3 ml-3 mb-3">
-        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-500">Your message:</label>
-        <textarea id="message" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..." />
+        <form
+          onSubmit={handleCommentSubmit}
+          className="mr-3 ml-3 mb-3"
+        >
+          <input
+            type="text"
+            name="comment"
+            value={comment || ''}
+            onChange={handleComment}
+            className="resize-y rounded-md block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Leave a comment..."
+          />
+          <input style={{ cursor: 'pointer' }} type="submit" value="Comment" />
+        </form>
+        <p style={{ color: 'red' }}>{errorMessage || null}</p>
       </div>
     </div>
-
   );
 }

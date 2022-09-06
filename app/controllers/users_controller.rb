@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy ]
+  before_action :set_user, only: %i[ show update destroy feed liked_post]
 
   # GET /users
   def index
@@ -46,12 +46,18 @@ class UsersController < ApplicationController
     redirect_back(fallback_location: user_path(@user))
   end
 
+  def feed
+    render json: @user.feed
+  end
 
+  def liked_post
+    render json: @user.liked_posts
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(params[:id] || session[:user_id])
     end
 
     # Only allow a list of trusted parameters through.

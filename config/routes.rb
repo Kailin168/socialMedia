@@ -13,6 +13,14 @@ Rails.application.routes.draw do
 
   post '/create_user', to: 'users#create'
 
+  post '/create_post', to: 'posts#create'
+
+  post '/create_comment', to: 'comments#create'
+
+  get '/feed', to: 'users#feed'
+
+  get '/liked_post', to: 'users#liked_post'
+
   get '/me', to: 'sessions#show'
 
   delete '/logout', to: 'sessions#destroy'

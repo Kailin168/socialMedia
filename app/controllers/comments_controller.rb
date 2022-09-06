@@ -15,13 +15,12 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
-
-    if @comment.save
-      render json: @comment, status: :created, location: @comment
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
+    additional_params = {
+      user_id: session[:user_id]
+    }
+    new_params = comment_params.merge(additional_params)
+    new_comment = Comment.create(new_params)
+    render json: new_comment, status: 201
   end
 
   # PATCH/PUT /comments/1
@@ -46,6 +45,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.require(:comment).permit(:user_id, :comment, :post_id, :comment_parents_id)
+      params.permit(:comment, :post_id, :comment_parents_id)
     end
 end
