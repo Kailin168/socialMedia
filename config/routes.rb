@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   get '/all_user', to: 'users#index'
 
+  get '/user_info/:id', to: 'users#show'
+
   get '/feed', to: 'users#feed'
 
   get '/liked_post', to: 'users#liked_post'

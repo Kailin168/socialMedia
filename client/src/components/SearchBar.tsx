@@ -1,12 +1,18 @@
-import React, { useState, ChangeEvent, useEffect } from 'react';
+import React, {
+  useState, ChangeEvent, useEffect, FocusEvent,
+} from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { IUser } from '../types/IUser';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
+  const [isSearchHidden, setIsSearchHidden] = useState(true);
   function handleOnChangeSearch(e: ChangeEvent<HTMLInputElement>) {
     setSearchInput(e.target.value);
   }
   const [allUsers, setAllUsers] = useState<IUser[]>([]);
+
+  const location = useLocation();
 
   useEffect(() => {
     fetch('/all_user')
@@ -22,7 +28,12 @@ export default function SearchBar() {
       });
   }, []);
 
-  allUsers.filter((user) => (user.name.toLowerCase().includes(searchInput.toLowerCase())));
+  useEffect(() => {
+    setIsSearchHidden(true);
+    setSearchInput('');
+  }, [location]);
+
+  const searchedUser = searchInput.length === 0 ? [] : allUsers.filter((user) => (user.name.toLowerCase().includes(searchInput.toLowerCase())));
 
   return (
     <div>
@@ -37,6 +48,14 @@ export default function SearchBar() {
             id="simple-search"
             value={searchInput}
             onChange={handleOnChangeSearch}
+            onFocus={() => {
+              setIsSearchHidden(false);
+            }}
+            onBlur={(e: FocusEvent<HTMLInputElement>) => {
+              if (!e.relatedTarget?.className.includes('searchItem')) {
+                setIsSearchHidden(true);
+              }
+            }}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search"
             required
@@ -47,6 +66,11 @@ export default function SearchBar() {
           <span className="sr-only">Search</span>
         </button>
       </form>
+      <div className={`${isSearchHidden ? 'hidden' : ''} absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
+        <div className="py-1" role="none">
+          {searchedUser.map((user) => <Link to={`/profile/${user.id}`} key={user.id} className="text-gray-700 block px-4 py-2 text-sm searchItem">{user.name}</Link>)}
+        </div>
+      </div>
     </div>
   );
 }

@@ -43,7 +43,7 @@ function App() {
           <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
           <Route path="/likes" element={<ProtectedRoute><Likes /></ProtectedRoute>} />
           <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
-          <Route path="/setting" element={<ProtectedRoute><ProfileDetails /></ProtectedRoute>} />
+          <Route path="/profile/:userId" element={<ProtectedRoute><ProfileDetails /></ProtectedRoute>} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/createAccount" element={<CreateAccount />} />
           <Route path="*" element={<NotFound />} />
