@@ -17,9 +17,7 @@ export default function Feed() {
 
   const handleContent = (e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value);
 
-  useEffect(() => {
-    setContent('');
-
+  const fetchFromServer = () => {
     fetch('/feed')
       .then((res) => {
         if (res.ok) {
@@ -31,6 +29,11 @@ export default function Feed() {
           setPosts([]);
         }
       });
+  };
+
+  useEffect(() => {
+    setContent('');
+    fetchFromServer();
   }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -67,6 +70,18 @@ export default function Feed() {
     resetForm.reset();
   };
 
+  const postHasAnUpdate = (updatedPost: IPost) => {
+    const updatedPosts = posts.map((post) => {
+      if (post.id === updatedPost.id) {
+        return updatedPost;
+      }
+      return post;
+    });
+    setPosts([...updatedPosts]);
+
+    fetchFromServer();
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="mr-3 ml-3 mb-3">
@@ -83,7 +98,7 @@ export default function Feed() {
       </form>
       <p style={{ color: 'red' }}>{errorMessage || null}</p>
       {
-        posts.map((post) => <FeedCard key={post.id} post={post} />)
+        posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
       }
     </div>
   );

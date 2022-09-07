@@ -1,18 +1,16 @@
 import React, {
-  useEffect, useState, ChangeEvent, FormEvent, useContext,
+  useEffect, useState, ChangeEvent, FormEvent,
 } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-import { AuthContext } from '../contexts/contexts';
-import { IPost } from '../types/IPost';
+import { IComment, IPost } from '../types/IPost';
 
 interface Props {
   post: IPost;
+  postHasAnUpdate: (updatedPost: IPost) => void;
 }
 
-export default function FeedCard({ post }: Props) {
-  const { user } = useContext(AuthContext);
-
+export default function FeedCard({ post, postHasAnUpdate }: Props) {
   const [comment, setComment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -40,9 +38,11 @@ export default function FeedCard({ post }: Props) {
       .then((res) => {
         if (res.ok) {
           res.json()
-            .then(() => {
+            .then((data) => {
               setErrorMessage('');
               setComment('');
+              post.comments.push(data);
+              postHasAnUpdate(post);
             });
         } else {
           res.json()
@@ -55,9 +55,12 @@ export default function FeedCard({ post }: Props) {
 
   return (
     <div className="max-w-lg rounded overflow-hidden shadow-lg">
+      {post.media
+      && (
       <div className="flex justify-center mt-5">
-        <img className="w-3/4" src={post.media ? post.media : ''} alt="feed" />
+        <img className="w-3/4" src={post.media} alt="feed" />
       </div>
+      )}
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{post.user_id}</div>
         <div style={{
@@ -66,7 +69,7 @@ export default function FeedCard({ post }: Props) {
           alignItems: 'center',
         }}
         >
-          {post.likes.some((like) => like.user_id === user.id) ? <AiFillHeart /> : <AiOutlineHeart />}
+          {post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}
           {post.like_count}
         </div>
         <p className="text-gray-700 text-base">
@@ -89,6 +92,9 @@ export default function FeedCard({ post }: Props) {
           <input style={{ cursor: 'pointer' }} type="submit" value="Comment" />
         </form>
         <p style={{ color: 'red' }}>{errorMessage || null}</p>
+      </div>
+      <div>
+        {post.comments.map((commentObj: IComment) => <div key={commentObj.id}>{commentObj.comment}</div>)}
       </div>
     </div>
   );

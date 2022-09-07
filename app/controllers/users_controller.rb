@@ -35,15 +35,20 @@ class UsersController < ApplicationController
   end
 
   def follow
-    @user = User.find(params[:id])
-    current_user.followees << @user
-    redirect_back(fallback_location: user_path(@user))
+    follower_id = params[:user_id]
+    followee_id = session[:user_id]
+    Follow.create(follower_id: follower_id, followee_id: followee_id)
+    render json: { success: true }
   end
   
   def unfollow
-    @user = User.find(params[:id])
-    current_user.followed_users.find_by(followee_id: @user.id).destroy
-    redirect_back(fallback_location: user_path(@user))
+    follower_id = params[:user_id]
+    followee_id = session[:user_id]
+    follow = Follow.find_by(follower_id: follower_id, followee_id: followee_id)
+    if follow 
+      follow.destroy
+    end
+    render json: { success: true }
   end
 
   def feed

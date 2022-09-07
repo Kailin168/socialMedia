@@ -6,7 +6,7 @@ import FeedCard from './FeedCard';
 export default function Likes() {
   const [posts, setPosts] = useState<IPost[]>([]);
 
-  useEffect(() => {
+  const fetchFromServer = () => {
     fetch('/liked_post')
       .then((res) => {
         if (res.ok) {
@@ -18,12 +18,28 @@ export default function Likes() {
           setPosts([]);
         }
       });
+  };
+
+  useEffect(() => {
+    fetchFromServer();
   }, []);
+
+  const postHasAnUpdate = (updatedPost: IPost) => {
+    const updatedPosts = posts.map((post) => {
+      if (post.id === updatedPost.id) {
+        return updatedPost;
+      }
+      return post;
+    });
+    setPosts([...updatedPosts]);
+
+    fetchFromServer();
+  };
 
   return (
     <>
       {
-        posts.map((post) => <FeedCard key={post.id} post={post} />)
+        posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
       }
     </>
   );

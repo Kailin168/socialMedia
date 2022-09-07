@@ -26,10 +26,13 @@ class User < ApplicationRecord
     followees.count
   end
 
-  
   def feed
     following_ids = "SELECT followee_id FROM follows WHERE follower_id = :user_id"
     Post.where("user_id IN (#{following_ids})", user_id: id).order(updated_at: :desc).limit(20)
+  end
+
+  def i_am_following?(followee_id)
+    followees.select {|followee| followee.id == followee_id }.count == 1
   end
   
 end

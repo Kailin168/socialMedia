@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { IPost } from '../types/IPost';
 import { IUser, EmptyUserValue } from '../types/IUser';
-// import FeedCard from './FeedCard';
+import FeedCard from './FeedCard';
 
 // import { AuthContext } from '../contexts/contexts';
 
@@ -11,14 +12,18 @@ export default function ProfileDetails() {
   // const { user } = useContext(AuthContext);
   const [otherUser, setOtherUser] = useState<IUser>(EmptyUserValue);
 
+  const fetchFromServer = () => {
+    fetch(`/user_info/${params.userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setOtherUser(data);
+      });
+  };
+
   useEffect(() => {
     if (location.pathname.includes('/profile/')) {
       // do regex for pathname
-      fetch(`/user_info/${params.userId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setOtherUser(data);
-        });
+      fetchFromServer();
     }
   }, [location.pathname]);
 
@@ -42,6 +47,19 @@ export default function ProfileDetails() {
       },
       body: JSON.stringify({ user_id: params.userId }),
     });
+  };
+
+  const postHasAnUpdate = (updatedPost: IPost) => {
+    const updatedPosts = otherUser.posts.map((post) => {
+      if (post.id === updatedPost.id) {
+        return updatedPost;
+      }
+      return post;
+    });
+    otherUser.posts = updatedPosts;
+    setOtherUser({ ...otherUser });
+
+    fetchFromServer();
   };
 
   return (
@@ -79,10 +97,7 @@ export default function ProfileDetails() {
 
       {
         otherUser.posts.map((post) => (
-          <div key={post.id}>
-            <p>{post.content}</p>
-            <p>{post.id}</p>
-          </div>
+          <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />
         ))
       }
     </div>

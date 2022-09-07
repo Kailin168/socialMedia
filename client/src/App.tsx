@@ -29,7 +29,7 @@ function App() {
               handleLogin(data);
               // navigate('/home');
             });
-        } else if (res.status !== 500) {
+        } else if (res.status !== 500 && res.status !== 404) {
           handleLogout();
         }
       });

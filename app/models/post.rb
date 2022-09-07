@@ -8,4 +8,8 @@ class Post < ApplicationRecord
     likes.count
   end
 
+  def i_liked?(session_user_id)
+    likes.select {|like| like.user_id == session_user_id }.count == 1
+  end
+
 end
