@@ -13,6 +13,7 @@ import ProfileDetails from './components/ProfileDetails';
 
 import { ProtectedRoute } from './utils/PrivateRoute';
 import { AuthContext } from './contexts/contexts';
+import DiscoverProvider from './contexts/DiscoverContext';
 
 import './App.css';
 import './styles.css';
@@ -37,18 +38,20 @@ function App() {
 
   if (isLoggedIn) {
     return (
-      <LoggedInPageLayout>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
-          <Route path="/likes" element={<ProtectedRoute><Likes /></ProtectedRoute>} />
-          <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
-          <Route path="/profile/:userId" element={<ProtectedRoute><ProfileDetails /></ProtectedRoute>} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/createAccount" element={<CreateAccount />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </LoggedInPageLayout>
+      <DiscoverProvider>
+        <LoggedInPageLayout>
+          <Routes>
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+            <Route path="/likes" element={<ProtectedRoute><Likes /></ProtectedRoute>} />
+            <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
+            <Route path="/profile/:userId" element={<ProtectedRoute><ProfileDetails /></ProtectedRoute>} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/createAccount" element={<CreateAccount />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </LoggedInPageLayout>
+      </DiscoverProvider>
     );
   }
   return (

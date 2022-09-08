@@ -61,6 +61,9 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.permit(:content, :media, :user_id)
+      new_params = params.permit(:content, :image)
+      new_params.merge({
+        user_id: session[:user_id]
+      })
     end
 end

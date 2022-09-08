@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy feed liked_post]
+  before_action :set_user, only: %i[ show update destroy feed liked_post discover]
 
   # GET /users
   def index
@@ -33,6 +33,17 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
   end
+
+
+  def discover
+    followees_ids = @user.followees.pluck(:id)
+    followees_ids << session[:user_id]
+    render json: User.where.not(id: followees_ids)
+#pluck id is going into the User array and just taking the id # for that user
+  end 
+
+
+  
 
   def follow
     follower_id = session[:user_id]

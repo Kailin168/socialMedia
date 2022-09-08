@@ -17,7 +17,7 @@ class User < ApplicationRecord
   validates :username, :email, uniqueness: true
   validates :username, :name, :email, presence: true
   validates :bio, presence: true
-  # validates :username, :password, length: { in: 3..15 }
+  validates :username, :password, length: { in: 3..15 }
   
   def follower_count
     followers.count

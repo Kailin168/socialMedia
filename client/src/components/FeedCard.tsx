@@ -2,6 +2,10 @@ import React, {
   useEffect, useState, ChangeEvent, FormEvent,
 } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+
+import emojiData from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 
 import { IComment, IPost } from '../types/ITypes';
 
@@ -11,6 +15,7 @@ interface Props {
 }
 
 export default function FeedCard({ post, postHasAnUpdate }: Props) {
+  const [showEmoji, setShowEmoji] = useState(false);
   const [comment, setComment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -71,16 +76,23 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
     postHasAnUpdate(newPost, false);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const addEmoji = (e:any) => {
+    const emoji = e.native;
+    setComment(comment + emoji);
+    setShowEmoji(false);
+  };
+
   return (
     <div className="max-w-lg rounded overflow-hidden shadow-lg">
-      {post.media
+      {post.image_url
       && (
       <div className="flex justify-center mt-5">
-        <img className="w-3/4" src={post.media} alt="feed" />
+        <img className="w-3/4" src={post.image_url} alt="feed" />
       </div>
       )}
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{post.user.username}</div>
+        <Link to={`/profile/${post.user.id}`}><div className="font-bold text-xl mb-2">{post.user.username}</div></Link>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
@@ -101,7 +113,20 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
         <form
           onSubmit={handleCommentSubmit}
           className="mr-3 ml-3 mb-3"
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}
         >
+          <button
+            type="button"
+            onClick={() => {
+              setShowEmoji(!showEmoji);
+            }}
+          >
+            😀
+
+          </button>
           <input
             type="text"
             name="comment"
@@ -112,10 +137,26 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
           />
           <input style={{ cursor: 'pointer' }} type="submit" value="Comment" />
         </form>
+        {showEmoji && (
+          <div style={{
+            position: 'absolute',
+          }}
+          >
+            <Picker
+              data={emojiData}
+              onEmojiSelect={addEmoji}
+            />
+          </div>
+        )}
         <p style={{ color: 'red' }}>{errorMessage || null}</p>
       </div>
       <div>
-        {post.comments.map((commentObj: IComment) => <div key={commentObj.id}>{commentObj.comment}</div>)}
+        {post.comments.map((commentObj: IComment) => (
+          <div key={commentObj.id}>
+            {commentObj.user.username}
+            {commentObj.comment}
+          </div>
+        ))}
       </div>
     </div>
   );

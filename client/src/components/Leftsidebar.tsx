@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/contexts';
+import Constants from '../utils/Constants';
 
 export default function Leftsidebar() {
   const { user } = useContext(AuthContext);
@@ -8,12 +10,14 @@ export default function Leftsidebar() {
     <div>
       <div>
         <div className="flex items-center justify-center mb-3">
-          <img
-            className="rounded-full border-solid border-2 border-sky-200"
-            width="150"
-            src={user.image_url}
-            alt="ProfileImage"
-          />
+          <Link to={`/profile/${user.id}`}>
+            <img
+              className="rounded-full border-solid border-2 border-sky-200"
+              width="150"
+              src={user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL}
+              alt="ProfileImage"
+            />
+          </Link>
         </div>
         <div>
           @

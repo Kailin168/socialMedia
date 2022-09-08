@@ -3,6 +3,7 @@ import React, {
   useState, useEffect, ChangeEvent, FormEvent,
 } from 'react';
 import { AuthContext } from '../contexts/contexts';
+import { DEFAULT_PROFILE_IMAGE_URL } from '../utils/Constants';
 
 export default function Setting() {
   const { handleLogin } = useContext(AuthContext);
@@ -55,13 +56,16 @@ export default function Setting() {
             });
         }
       });
+    setBio('');
+    setCountry('');
+    setLanguage('');
   };
 
   return (
     <div>
       <div className="max-w-lg rounded overflow-hidden shadow-lg">
         <div className="flex justify-center mt-5">
-          <img className="w-3/4" src={user.image_url} alt="feed" />
+          <img className="w-3/4" src={user.image_url || DEFAULT_PROFILE_IMAGE_URL} alt="feed" />
         </div>
         <div className="px-6 py-4">
           <p className="text-gray-700 text-base">

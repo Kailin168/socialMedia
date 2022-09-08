@@ -1,18 +1,16 @@
 import React, {
-  useContext, useEffect, useState, FormEvent, ChangeEvent,
+  useEffect, useState, FormEvent, ChangeEvent,
 } from 'react';
 
 import FeedCard from './FeedCard';
 
-import { AuthContext } from '../contexts/contexts';
 import { IPost } from '../types/ITypes';
 
 export default function Feed() {
-  const { user } = useContext(AuthContext);
-
   const [content, setContent] = useState('');
   const [posts, setPosts] = useState<IPost[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [media, setMedia] = useState<File | null>(null);
 
   const handleContent = (e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value);
 
@@ -37,19 +35,14 @@ export default function Feed() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newPost = {
-      content,
-      user_id: user.id,
-      // media,
-    };
-    console.log(newPost);
+    const formData = new FormData();
+    if (media) {
+      formData.append('image', media);
+    }
+    formData.append('content', content);
     fetch('/create_post', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json',
-      },
-      body: JSON.stringify(newPost),
+      body: formData,
     })
       .then((res) => {
         if (res.ok) {
@@ -65,8 +58,7 @@ export default function Feed() {
             });
         }
       });
-    const resetForm = e.target as HTMLFormElement;
-    resetForm.reset();
+    setContent('');
   };
 
   const postHasAnUpdate = (updatedPost?: IPost, updateServer = true, updateClient = true) => {
@@ -96,6 +88,16 @@ export default function Feed() {
           onChange={handleContent}
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="What's happening?"
+        />
+        <label>🖼</label>
+        <input
+          type="file"
+          accept="image/*"
+          name="media"
+          placeholder="media"
+          onChange={(e) => {
+            if (e.target.files) { setMedia(e.target.files[0]); }
+          }}
         />
         <input type="submit" value="Create" />
       </form>

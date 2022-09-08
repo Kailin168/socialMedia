@@ -46,6 +46,7 @@ export interface IComment {
   created_at: string
   post_id: number
   user_id: number
+  user: IUser
 }
 
 export interface IPost {
@@ -53,7 +54,7 @@ export interface IPost {
   id: number
   i_liked: boolean
   like_count: number
-  media?: string | undefined
+  image_url: string,
   updated_at: string
   user_id: number
   likes: ILike[]

@@ -76,6 +76,10 @@ function CreateAccount() {
       });
   };
 
+  function handleClick() {
+    navigate('/login');
+  }
+
   return (
     <div>
       Create an Account:
@@ -165,6 +169,9 @@ function CreateAccount() {
         <p style={{ color: 'red' }}>{errorMessage || null}</p>
         <input type="submit" />
       </form>
+      <div>
+        <button type="button" onClick={handleClick}>Back to Log in</button>
+      </div>
     </div>
   );
 }
