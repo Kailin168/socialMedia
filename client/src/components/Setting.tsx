@@ -21,11 +21,11 @@ export default function Setting() {
 
   useEffect(() => {
     setErrorMessage('');
-    setBio('');
-    setCountry('');
-    setLanguage('');
+    setBio(user.bio);
+    setCountry(user.country);
+    setLanguage(user.language);
     setProfileImage(null);
-  }, []);
+  }, [user]);
 
   const handleAccountSubmit = (e: FormEvent) => {
     e.preventDefault();

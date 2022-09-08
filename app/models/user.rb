@@ -17,8 +17,12 @@ class User < ApplicationRecord
   validates :username, :email, uniqueness: true
   validates :username, :name, :email, presence: true
   validates :bio, presence: true
-  validates :username, :password, length: { in: 3..15 }
-  
+  validates :password, length: { in: 5..15 }, if: :should_validate_password?
+
+  def should_validate_password?
+    new_record? ? true : password.present?
+  end
+
   def follower_count
     followers.count
   end
