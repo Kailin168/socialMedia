@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   post '/post/unlike', to: "posts#unlike"
 
+  delete '/delete_post/:id', to: "posts#delete"
+
   post '/login', to: 'sessions#create'
 
   post '/create_user', to: 'users#create'

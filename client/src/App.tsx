@@ -19,21 +19,10 @@ import './App.css';
 import './styles.css';
 
 function App() {
-  const { handleLogin, handleLogout, isLoggedIn } = useContext(AuthContext);
+  const { fetchUser, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch('/me')
-      .then((res) => {
-        if (res.ok) {
-          res.json()
-            .then((data) => {
-              handleLogin(data);
-              // navigate('/home');
-            });
-        } else if (res.status !== 500 && res.status !== 404) {
-          handleLogout();
-        }
-      });
+    fetchUser();
   }, []);
 
   if (isLoggedIn) {

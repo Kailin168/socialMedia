@@ -1,11 +1,13 @@
 import React, {
-  useEffect, useState, ChangeEvent, FormEvent,
+  useEffect, useState, ChangeEvent, FormEvent, useContext,
 } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 import emojiData from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
+
+import { AuthContext } from '../contexts/contexts';
 
 import { IComment, IPost } from '../types/ITypes';
 
@@ -18,6 +20,7 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
   const [showEmoji, setShowEmoji] = useState(false);
   const [comment, setComment] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const { user } = useContext(AuthContext);
 
   const handleComment = (e: ChangeEvent<HTMLInputElement>) => setComment(e.target.value);
 
@@ -83,6 +86,15 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
     setShowEmoji(false);
   };
 
+  const handleDeletePost = () => {
+    fetch(`/delete_post/${post.id}`, {
+      method: 'DElETE',
+    })
+      .then(() => {
+        postHasAnUpdate(undefined, true, false);
+      });
+  };
+
   return (
     <div className="max-w-lg rounded overflow-hidden shadow-lg">
       {post.image_url
@@ -91,6 +103,8 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
         <img className="w-3/4" src={post.image_url} alt="feed" />
       </div>
       )}
+      {post.user_id === user.id ? <button type="button" onClick={handleDeletePost}>X</button> : null }
+
       <div className="px-6 py-4">
         <Link to={`/profile/${post.user.id}`}><div className="font-bold text-xl mb-2">{post.user.username}</div></Link>
         <div style={{

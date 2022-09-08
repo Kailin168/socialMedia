@@ -29,6 +29,21 @@ function AuthProvider({ children }: Props) {
     Cookies.remove('isLoggedIn');
   };
 
+  const fetchUser = () => {
+    fetch('/me')
+      .then((res) => {
+        if (res.ok) {
+          res.json()
+            .then((data) => {
+              handleLogin(data);
+            // navigate('/home');
+            });
+        } else if (res.status !== 500 && res.status !== 404) {
+          handleLogout();
+        }
+      });
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -36,6 +51,7 @@ function AuthProvider({ children }: Props) {
         handleLogin,
         handleLogout,
         isLoggedIn,
+        fetchUser,
       }}
     >
       {children}

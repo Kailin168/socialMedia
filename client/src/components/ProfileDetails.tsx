@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { IUser, EmptyUserValue, IPost } from '../types/ITypes';
 import FeedCard from './FeedCard';
-import { DiscoverContext } from '../contexts/contexts';
+import { DiscoverContext, AuthContext } from '../contexts/contexts';
 import { DEFAULT_PROFILE_IMAGE_URL } from '../utils/Constants';
 
 export default function ProfileDetails() {
@@ -12,6 +12,7 @@ export default function ProfileDetails() {
 
   const [otherUser, setOtherUser] = useState<IUser>(EmptyUserValue);
   const { fetchDiscoverUsers } = useContext(DiscoverContext);
+  const { fetchUser } = useContext(AuthContext);
 
   const fetchFromServer = () => {
     fetch(`/user_info/${params.userId}`)
@@ -37,7 +38,10 @@ export default function ProfileDetails() {
       },
       body: JSON.stringify({ user_id: params.userId }),
     })
-      .then(fetchDiscoverUsers);
+      .then(() => {
+        fetchDiscoverUsers();
+        fetchUser();
+      });
     otherUser.i_am_following = true;
     setOtherUser({ ...otherUser });
   };
@@ -51,7 +55,10 @@ export default function ProfileDetails() {
       },
       body: JSON.stringify({ user_id: params.userId }),
     })
-      .then(fetchDiscoverUsers);
+      .then(() => {
+        fetchDiscoverUsers();
+        fetchUser();
+      });
     otherUser.i_am_following = false;
     setOtherUser({ ...otherUser });
   };

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy]
+  before_action :set_post, only: %i[ show update]
 
   # GET /posts
   def index
@@ -49,8 +49,11 @@ class PostsController < ApplicationController
   end
 
   # DELETE /posts/1
-  def destroy
-    @post.destroy
+  def delete
+    post = Post.find_by(id: params[:id], user_id: session[:user_id])
+    if post != nil
+      post.destroy
+    end
   end
 
   private

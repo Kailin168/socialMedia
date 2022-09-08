@@ -4,6 +4,7 @@ import { EmptyUserValue, IUser } from '../types/ITypes';
 
 export const AuthContext = createContext({
   user: EmptyUserValue,
+  fetchUser: () => {},
   handleLogout: () => {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   handleLogin: (user: any) => {},
