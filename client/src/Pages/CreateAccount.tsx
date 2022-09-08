@@ -10,7 +10,7 @@ function CreateAccount() {
   const navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState('');
-  const [profileImage, setProfileImage] = useState('');
+  const [profileImage, setProfileImage] = useState<File | null>(null);
   const [bio, setBio] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ function CreateAccount() {
   const [accountPassword, setAccountPassword] = useState('');
   const [accountUsername, setAccountUsername] = useState('');
 
-  const handleAccountProfileImage = (e: ChangeEvent<HTMLInputElement>) => setProfileImage(e.target.value);
+  // const handleAccountProfileImage = (e: ChangeEvent<HTMLInputElement>) => setProfileImage(e.target.value);
   const handleAccountBio = (e: ChangeEvent<HTMLInputElement>) => setBio(e.target.value);
   const handleAccountName = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
   const handleAccountCountry = (e: ChangeEvent<HTMLInputElement>) => setCountry(e.target.value);
@@ -37,31 +37,27 @@ function CreateAccount() {
     setEmail('');
     setCountry('');
     setLanguage('');
-    setProfileImage('');
+    setProfileImage(null);
   }, []);
 
   const handleAccountSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const createAccount = {
-      name,
-      profile_image: profileImage,
-      bio,
-      country,
-      language,
-      email,
-      username: accountUsername,
-      password: accountPassword,
-    };
-    console.log(createAccount);
+    const formData = new FormData();
+    if (profileImage) {
+      formData.append('image', profileImage);
+    }
+    formData.append('name', name);
+    formData.append('bio', bio);
+    formData.append('country', country);
+    formData.append('language', language);
+    formData.append('email', email);
+    formData.append('username', accountUsername);
+    formData.append('password', accountPassword);
 
     setErrorMessage('');
     fetch('/create_user', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accepts: 'application/json',
-      },
-      body: JSON.stringify(createAccount),
+      body: formData,
     })
       .then((res) => {
         if (res.ok) {
@@ -137,11 +133,13 @@ function CreateAccount() {
         <div style={{ margin: '10px 0' }}>
           <label>Profile Picture:</label>
           <input
-            type="text"
+            type="file"
+            accept="image/*"
             name="profile_image"
             placeholder="profile_image"
-            value={profileImage || ''}
-            onChange={handleAccountProfileImage}
+            onChange={(e) => {
+              if (e.target.files) { setProfileImage(e.target.files[0]); }
+            }}
           />
         </div>
         <div style={{ margin: '10px 0' }}>

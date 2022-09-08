@@ -9,9 +9,14 @@ Rails.application.routes.draw do
   
   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
 
+  post '/post/like', to: "posts#like"
+  post '/post/unlike', to: "posts#unlike"
+
   post '/login', to: 'sessions#create'
 
   post '/create_user', to: 'users#create'
+
+  patch '/update_user', to: 'users#update'
 
   post '/create_post', to: 'posts#create'
 

@@ -5,14 +5,13 @@ import React, {
 import FeedCard from './FeedCard';
 
 import { AuthContext } from '../contexts/contexts';
-import { IPost } from '../types/IPost';
+import { IPost } from '../types/ITypes';
 
 export default function Feed() {
   const { user } = useContext(AuthContext);
 
   const [content, setContent] = useState('');
   const [posts, setPosts] = useState<IPost[]>([]);
-  // const [media, setmedia] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleContent = (e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value);
@@ -70,16 +69,20 @@ export default function Feed() {
     resetForm.reset();
   };
 
-  const postHasAnUpdate = (updatedPost: IPost) => {
-    const updatedPosts = posts.map((post) => {
-      if (post.id === updatedPost.id) {
-        return updatedPost;
-      }
-      return post;
-    });
-    setPosts([...updatedPosts]);
+  const postHasAnUpdate = (updatedPost?: IPost, updateServer = true, updateClient = true) => {
+    if (updateClient && updatedPost !== undefined) {
+      const updatedPosts = posts.map((post) => {
+        if (post.id === updatedPost.id) {
+          return updatedPost;
+        }
+        return post;
+      });
+      setPosts([...updatedPosts]);
+    }
 
-    fetchFromServer();
+    if (updateServer) {
+      fetchFromServer();
+    }
   };
 
   return (

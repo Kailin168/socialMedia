@@ -3,11 +3,11 @@ import React, {
 } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-import { IComment, IPost } from '../types/IPost';
+import { IComment, IPost } from '../types/ITypes';
 
 interface Props {
   post: IPost;
-  postHasAnUpdate: (updatedPost: IPost) => void;
+  postHasAnUpdate: (updatedPost?: IPost, updateServer?: boolean, updateClient?: boolean) => void;
 }
 
 export default function FeedCard({ post, postHasAnUpdate }: Props) {
@@ -42,7 +42,7 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
               setErrorMessage('');
               setComment('');
               post.comments.push(data);
-              postHasAnUpdate(post);
+              postHasAnUpdate(post, true, true);
             });
         } else {
           res.json()
@@ -51,6 +51,24 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
             });
         }
       });
+  };
+
+  const handleLikeOrUnlike = () => {
+    fetch(post.i_liked ? '/post/unlike' : '/post/like', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accepts: 'application/json',
+      },
+      body: JSON.stringify({ post_id: post.id }),
+    }).then(() => {
+      postHasAnUpdate(undefined, true, false);
+    });
+
+    const newPost = post;
+    newPost.i_liked = !post.i_liked;
+    newPost.like_count = post.i_liked ? post.like_count + 1 : post.like_count - 1;
+    postHasAnUpdate(newPost, false);
   };
 
   return (
@@ -62,15 +80,18 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
       </div>
       )}
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{post.user_id}</div>
+        <div className="font-bold text-xl mb-2">{post.user.username}</div>
         <div style={{
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
         }}
         >
-          {post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}
-          {post.like_count}
+          <button type="button" onClick={handleLikeOrUnlike}>
+            {post.like_count}
+            {' '}
+            {post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}
+          </button>
         </div>
         <p className="text-gray-700 text-base">
           {post.content ? post.content : ''}

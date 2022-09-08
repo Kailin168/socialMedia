@@ -11,7 +11,7 @@ export default function Leftsidebar() {
           <img
             className="rounded-full border-solid border-2 border-sky-200"
             width="150"
-            src={user.profile_image}
+            src={user.image_url}
             alt="ProfileImage"
           />
         </div>

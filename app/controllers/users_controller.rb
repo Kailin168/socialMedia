@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
+    if @user.update(update_user_params)
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -35,17 +35,17 @@ class UsersController < ApplicationController
   end
 
   def follow
-    follower_id = params[:user_id]
-    followee_id = session[:user_id]
-    Follow.create(follower_id: follower_id, followee_id: followee_id)
+    follower_id = session[:user_id]
+    followee_id = params[:user_id]
+  Follow.create!(follower_id: follower_id, followee_id: followee_id)
     render json: { success: true }
   end
   
   def unfollow
-    follower_id = params[:user_id]
-    followee_id = session[:user_id]
+    follower_id = session[:user_id]
+    followee_id = params[:user_id]
     follow = Follow.find_by(follower_id: follower_id, followee_id: followee_id)
-    if follow 
+    if follow
       follow.destroy
     end
     render json: { success: true }
@@ -53,6 +53,9 @@ class UsersController < ApplicationController
 
   def feed
     render json: @user.feed
+    # followings = Follow.where(follower_id: session[:user_id])
+    
+    # render json: followings, each_serializers: FollowingSerializer, include: ["followee.posts.comments.user"]
   end
 
   def liked_post
@@ -67,6 +70,10 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:username, :password, :name, :email, :profile_image, :bio, :country, :language)
+      params.permit(:username, :password, :name, :email, :image, :bio, :country, :language)
+    end
+
+    def update_user_params
+      params.permit(:image, :bio, :country, :language)
     end
 end

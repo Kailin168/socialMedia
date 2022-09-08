@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy ]
+  before_action :set_post, only: %i[ show update destroy]
 
   # GET /posts
   def index
@@ -30,6 +30,21 @@ class PostsController < ApplicationController
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
+    end
+  end
+
+
+  def like
+    render json: Like.create!(user_id: session[:user_id], post_id: params[:post_id])
+  end
+
+
+  def unlike
+    find_like = Like.find_by(user_id: session[:user_id], post_id: params[:post_id])
+    if find_like != nil
+      render json: find_like.destroy
+    else
+      render json: {error: "failed"}
     end
   end
 

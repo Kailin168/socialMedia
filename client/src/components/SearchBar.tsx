@@ -2,7 +2,7 @@ import React, {
   useState, ChangeEvent, useEffect, FocusEvent,
 } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { IUser } from '../types/IUser';
+import { IUser } from '../types/ITypes';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');

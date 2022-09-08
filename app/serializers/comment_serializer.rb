@@ -3,4 +3,5 @@ class CommentSerializer < ActiveModel::Serializer
 
   belongs_to :user
   belongs_to :post
+  # has_one :user
 end

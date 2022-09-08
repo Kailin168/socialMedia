@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { EmptyUserValue } from '../types/IUser';
+import { EmptyUserValue } from '../types/ITypes';
 // const setStateObjectFunc: Dispatch<SetStateAction<Record<string, unknown>>> = () => {};
 
 export const AuthContext = createContext({

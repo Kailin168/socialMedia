@@ -3,7 +3,7 @@ import React, { useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-import { IUser, EmptyUserValue } from '../types/IUser';
+import { IUser, EmptyUserValue } from '../types/ITypes';
 import { AuthContext } from './contexts';
 
 interface Props {

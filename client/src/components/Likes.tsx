@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { IPost } from '../types/IPost';
+import { IPost } from '../types/ITypes';
 import FeedCard from './FeedCard';
 
 export default function Likes() {
@@ -24,16 +24,20 @@ export default function Likes() {
     fetchFromServer();
   }, []);
 
-  const postHasAnUpdate = (updatedPost: IPost) => {
-    const updatedPosts = posts.map((post) => {
-      if (post.id === updatedPost.id) {
-        return updatedPost;
-      }
-      return post;
-    });
-    setPosts([...updatedPosts]);
+  const postHasAnUpdate = (updatedPost?: IPost, updateServer = true, updateClient = true) => {
+    if (updateClient && updatedPost !== undefined) {
+      const updatedPosts = posts.map((post) => {
+        if (post.id === updatedPost.id) {
+          return updatedPost;
+        }
+        return post;
+      });
+      setPosts([...updatedPosts]);
+    }
 
-    fetchFromServer();
+    if (updateServer) {
+      fetchFromServer();
+    }
   };
 
   return (
