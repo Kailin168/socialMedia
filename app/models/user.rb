@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   has_one_attached :image
 
-  has_many :posts, dependent: :destroy
+  has_many :posts, -> { order "updated_at DESC" }, dependent: :destroy
   has_many :likes
   has_many :liked_posts, through: :likes, source: :post
   has_many :comments
@@ -35,6 +35,7 @@ class User < ApplicationRecord
     following_ids = "SELECT followee_id FROM follows WHERE follower_id = :user_id"
     posts = Post.where("user_id IN (#{following_ids})", user_id: id).order(updated_at: :desc).limit(20)
   end
+
 
   def i_am_following?(follower_id)
     followers.select {|follower| follower.id == follower_id }.count == 1

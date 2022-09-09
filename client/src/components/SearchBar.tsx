@@ -33,7 +33,7 @@ export default function SearchBar() {
     setSearchInput('');
   }, [location]);
 
-  const searchedUser = searchInput.length === 0 ? [] : allUsers.filter((user) => (user.name.toLowerCase().includes(searchInput.toLowerCase())));
+  const searchedUser = searchInput.length === 0 ? [] : allUsers.filter((user) => (user.name.toLowerCase().includes(searchInput.toLowerCase())) || (user.username.toLowerCase().includes(searchInput.toLowerCase())));
 
   return (
     <div>
@@ -68,7 +68,15 @@ export default function SearchBar() {
       </form>
       <div className={`${isSearchHidden ? 'hidden' : ''} absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`} role="menu" aria-orientation="vertical" aria-labelledby="menu-button">
         <div className="py-1" role="none">
-          {searchedUser.map((user) => <Link to={`/profile/${user.id}`} key={user.id} className="text-gray-700 block px-4 py-2 text-sm searchItem">{user.name}</Link>)}
+          {searchedUser.map((user) => (
+            <Link to={`/profile/${user.id}`} key={user.id} className="text-gray-700 block px-4 py-2 text-sm searchItem">
+              {user.name}
+              {' '}
+              /
+              {' '}
+              {user.username}
+            </Link>
+          ))}
         </div>
       </div>
     </div>
