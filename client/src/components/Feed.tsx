@@ -104,7 +104,7 @@ export default function Feed() {
             if (e.target.files) { setMedia(e.target.files[0]); }
           }}
         />
-        <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="Create" />
+        <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg inline-flex items-center mr-5" type="submit" value="Create" />
       </form>
       <p style={{ color: 'red' }}>{errorMessage || null}</p>
       <div>

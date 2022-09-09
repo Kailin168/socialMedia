@@ -1,8 +1,8 @@
 import React, {
   useEffect, useContext,
 } from 'react';
-
 import { Link } from 'react-router-dom';
+import Constants from '../utils/Constants';
 
 import { DiscoverContext } from '../contexts/contexts';
 
@@ -19,8 +19,10 @@ export default function Rightsidebar() {
         {discoverUsers.length === 0 ? <span>Nothing to Discover</span> : discoverUsers.map((user) => (
           <div key={user.id}>
             <Link to={`/profile/${user.id}`}>
-              {user.username}
-              {' '}
+              <div className="flex items-center">
+                <img className="p-1 w-10 h-10 rounded-full ring-gray-300 dark:ring-gray-500" src={user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL} alt="profile" />
+                <div>{user.username}</div>
+              </div>
             </Link>
           </div>
         ))}
