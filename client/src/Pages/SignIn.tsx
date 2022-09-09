@@ -28,7 +28,6 @@ function SignIn() {
       username,
       password,
     };
-    console.log(logIn);
     fetch('/login', {
       method: 'POST',
       headers: {
@@ -41,7 +40,6 @@ function SignIn() {
         if (res.ok) {
           res.json()
             .then((data) => {
-              console.log(data);
               setErrorMessage('');
               handleLogin(data);
               navigate('/');
@@ -54,42 +52,45 @@ function SignIn() {
   };
 
   return (
-    <div style={{
-      textAlign: 'center', padding: '20px', background: '#98c1d9', borderRadius: '8px', margin: '0 auto', width: '50%',
-    }}
-    >
-      <div>
-        SIGN IN
-        <form onSubmit={handleSubmit}>
-          <div style={{ margin: '10px 0' }}>
-            <label>
-              Username:
-              <input
-                type="text"
-                name="username"
-                placeholder="username"
-                value={username || ''}
-                onChange={handleUsername}
-              />
-            </label>
-          </div>
-          <div style={{ margin: '10px 0' }}>
-            <label>
-              Password:
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={password || ''}
-                onChange={handlePassword}
-              />
-            </label>
-          </div>
-          <p style={{ color: 'red' }}>{errorMessage || null}</p>
-          <input type="submit" />
-        </form>
+    <div className="flex items-center justify-center h-screen">
+      <div className="flex flex-col">
+        <div className="w-full max-w-xs">
+          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                Username
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  name="username"
+                  placeholder="username"
+                  value={username || ''}
+                  onChange={handleUsername}
+                />
+              </label>
+            </div>
+            <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                Password
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  value={password || ''}
+                  onChange={handlePassword}
+                />
+              </label>
+            </div>
+            <p className="text-red-500 text-xs italic">{errorMessage || null}</p>
+            <input className="flex items-center justify-between bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Log In" />
+          </form>
+        </div>
+        <button className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" type="button" onClick={() => { navigate('/createAccount'); }}>Do not have an account? Register here</button>
+        <p className="text-center text-gray-500 text-xs">
+          &copy;2022 HandCrafted by Kai
+        </p>
       </div>
-      <button type="button" onClick={() => { navigate('/createAccount'); }}>Do not have an account? Register here</button>
     </div>
   );
 }

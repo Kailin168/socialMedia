@@ -31,7 +31,17 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  #######when set to true, where there is an error then it will send error, do it for the production side for deploy, and everything under it is for handling google.
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.gmail.com',
+    :domain         => 'mail.google.com',
+    :port           => 587,
+    :user_name      => ENV['MAILER_ADDRESS'],
+    :password       => ENV['MAILER_PASSWORD'],
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 
   config.action_mailer.perform_caching = false
 

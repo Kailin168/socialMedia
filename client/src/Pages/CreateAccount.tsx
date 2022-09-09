@@ -81,96 +81,105 @@ function CreateAccount() {
   }
 
   return (
-    <div>
-      Create an Account:
-      <form onSubmit={handleAccountSubmit}>
-        <div style={{ margin: '10px 0' }}>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={name || ''}
-            onChange={handleAccountName}
-          />
+    <div className="flex items-center justify-center h-screen">
+      <div className="w-full max-w-max">
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleAccountSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Name">Name</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={name || ''}
+              onChange={handleAccountName}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Bio">Bio</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="bio"
+              placeholder="Bio"
+              value={bio || ''}
+              onChange={handleAccountBio}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Country">Country</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="country"
+              placeholder="Country"
+              value={country || ''}
+              onChange={handleAccountCountry}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Language">Language</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="language"
+              placeholder="Language"
+              value={language || ''}
+              onChange={handleAccountLanguage}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Email">Email</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="email"
+              placeholder="e-mail"
+              value={email || ''}
+              onChange={handleAccountEmail}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Profile Picture">Profile Picture</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="file"
+              accept="image/*"
+              name="profile_image"
+              placeholder="profile_image"
+              onChange={(e) => {
+                if (e.target.files) { setProfileImage(e.target.files[0]); }
+              }}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Username</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="username"
+              placeholder="username"
+              value={accountUsername || ''}
+              onChange={handleAccountUsername}
+            />
+          </div>
+          <div style={{ margin: '10px 0' }}>
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Password</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="password"
+              name="password"
+              placeholder="password"
+              value={accountPassword || ''}
+              onChange={handleAccountPassword}
+            />
+          </div>
+          <p className="text-red-500 text-xs italic">{errorMessage || null}</p>
+          <input className="flex items-center justify-between bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" value="Create an Account" />
+        </form>
+        <div>
+          <button type="button" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" onClick={handleClick}>Back to Log in</button>
         </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Bio:</label>
-          <input
-            type="text"
-            name="bio"
-            placeholder="Bio"
-            value={bio || ''}
-            onChange={handleAccountBio}
-          />
-        </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Country:</label>
-          <input
-            type="text"
-            name="country"
-            placeholder="Country"
-            value={country || ''}
-            onChange={handleAccountCountry}
-          />
-        </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Language:</label>
-          <input
-            type="text"
-            name="language"
-            placeholder="Language"
-            value={language || ''}
-            onChange={handleAccountLanguage}
-          />
-        </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Email:</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="e-mail"
-            value={email || ''}
-            onChange={handleAccountEmail}
-          />
-        </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Profile Picture:</label>
-          <input
-            type="file"
-            accept="image/*"
-            name="profile_image"
-            placeholder="profile_image"
-            onChange={(e) => {
-              if (e.target.files) { setProfileImage(e.target.files[0]); }
-            }}
-          />
-        </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            placeholder="username"
-            value={accountUsername || ''}
-            onChange={handleAccountUsername}
-          />
-        </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            value={accountPassword || ''}
-            onChange={handleAccountPassword}
-          />
-        </div>
-        <p style={{ color: 'red' }}>{errorMessage || null}</p>
-        <input type="submit" />
-      </form>
-      <div>
-        <button type="button" onClick={handleClick}>Back to Log in</button>
       </div>
     </div>
   );

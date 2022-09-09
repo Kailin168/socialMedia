@@ -41,10 +41,10 @@ export default function Likes() {
   };
 
   return (
-    <>
+    <div>
       {
         posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
       }
-    </>
+    </div>
   );
 }

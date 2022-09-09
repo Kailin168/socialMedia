@@ -110,15 +110,22 @@ export default function ProfileDetails() {
         </div>
       </div>
       {otherUser.i_am_following ? (
-        <button type="button" onClick={handleUnFollow}>
-          Unfollow
+        <button className="bg-blue-300 hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" type="button" onClick={handleUnFollow}>
+          <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+          <span>Unfollow</span>
         </button>
       ) : (
-        <button type="button" onClick={handleFollow}>
-          Follow
+        <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" type="button" onClick={handleFollow}>
+          <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" /></svg>
+          <span>follow</span>
         </button>
       )}
-      <button type="button" onClick={handleClick}>Message</button>
+      <button className="bg-blue-300 hover:bg-blue-500 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" type="button" onClick={handleClick}>
+        <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6" />
+
+        <span>Message</span>
+      </button>
       {
         otherUser.posts.map((post) => (
           <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />

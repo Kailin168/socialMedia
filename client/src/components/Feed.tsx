@@ -48,8 +48,7 @@ export default function Feed() {
       .then((res) => {
         if (res.ok) {
           res.json()
-            .then((data) => {
-              console.log(data);
+            .then(() => {
               setErrorMessage('');
             });
         } else {
@@ -81,7 +80,7 @@ export default function Feed() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="mr-3 ml-3 mb-3">
+      <form onSubmit={handleSubmit} className="sticky top-0 mr-3 ml-3 bg-white">
         <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-500">New Post</label>
         <input
           type="text"
@@ -108,9 +107,11 @@ export default function Feed() {
         <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit" value="Create" />
       </form>
       <p style={{ color: 'red' }}>{errorMessage || null}</p>
-      {
-        posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
-      }
+      <div>
+        {
+          posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
+        }
+      </div>
     </div>
   );
 }

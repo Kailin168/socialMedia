@@ -28,7 +28,7 @@
     "max-len": [
       "error",
       {
-        "code": 400
+        "code": 450
       }
     ],
     "react/jsx-filename-extension": [

@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
+    UsersMailer.with(user: user).welcome.deliver_later
     render json: user, status: :created
   end
 

@@ -14,15 +14,20 @@ export default function Rightsidebar() {
   }, []);
 
   return (
-    <div>
-      {discoverUsers.length === 0 ? <span>Nothing to Discover</span> : discoverUsers.map((user) => (
-        <div key={user.id}>
-          <Link to={`/profile/${user.id}`}>
-            {user.username}
-            {' '}
-          </Link>
-        </div>
-      ))}
+    <div className="flex flex-col h-full">
+      <div className="h-1/2 border">
+        {discoverUsers.length === 0 ? <span>Nothing to Discover</span> : discoverUsers.map((user) => (
+          <div key={user.id}>
+            <Link to={`/profile/${user.id}`}>
+              {user.username}
+              {' '}
+            </Link>
+          </div>
+        ))}
+      </div>
+      <div>
+        Ads
+      </div>
     </div>
   );
 }
