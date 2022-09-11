@@ -63,75 +63,85 @@ export default function Setting() {
 
   return (
     <div>
-      <div className="max-w-lg rounded overflow-hidden shadow-lg">
-        <div className="flex justify-center mt-5">
-          <img className="w-3/4" src={user.image_url || DEFAULT_PROFILE_IMAGE_URL} alt="feed" />
-        </div>
-        <div className="px-6 py-4">
-          <p className="text-gray-700 text-base">
+      <div className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-200 dark:bg-gray-200 dark:hover:bg-gray-200">
+        <img className="object-cover w-full h-full rounded md:h-60 md:w-auto md:rounded-full pl-2 pr-6" src={user.image_url || DEFAULT_PROFILE_IMAGE_URL} alt="feed" />
+        <div className="flex flex-col justify-between p-4 leading-normal">
+          <p className="mb-2 text-2xl font-bold tracking-tight dark:text-slate-700">
             {user.username}
           </p>
-          <p className="text-gray-700 text-base">
+          <p className="mb-3 font-normal dark:text-gray-700">
             {user.name}
           </p>
-          <div className="font-bold text-xl mb-2">{user.bio}</div>
-          <div>
+          <div className="mb-3 font-normal dark:text-gray-500">{user.bio}</div>
+          <div className="mb-3 font-normal dark:text-gray-500">
             {user.email}
           </div>
-          <p className="text-gray-700 text-base">
+          <p className="mb-3 font-normal dark:text-gray-500">
             {user.country}
           </p>
-          <p className="text-gray-700 text-base">
+          <p className="mb-3 font-normal dark:text-gray-500">
             {user.language}
           </p>
         </div>
       </div>
-      Update an Account:
-      <form onSubmit={handleAccountSubmit}>
-        <div style={{ margin: '10px 0' }}>
-          <label>Bio:</label>
-          <input
-            type="text"
-            name="bio"
-            placeholder="Bio"
-            value={bio || ''}
-            onChange={handleAccountBio}
-          />
+      <div className="text-gray-700 text-center text-2xl border-2 m-4">Update Account:</div>
+      <form className="w-full max-w-sm" onSubmit={handleAccountSubmit}>
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:full">
+            <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Bio:</label>
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              type="text"
+              name="bio"
+              placeholder="Bio"
+              value={bio || ''}
+              onChange={handleAccountBio}
+            />
+          </div>
         </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Country:</label>
-          <input
-            type="text"
-            name="country"
-            placeholder="Country"
-            value={country || ''}
-            onChange={handleAccountCountry}
-          />
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-full">
+            <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Country:</label>
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              type="text"
+              name="country"
+              placeholder="Country"
+              value={country || ''}
+              onChange={handleAccountCountry}
+            />
+          </div>
         </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Language:</label>
-          <input
-            type="text"
-            name="language"
-            placeholder="Language"
-            value={language || ''}
-            onChange={handleAccountLanguage}
-          />
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-full">
+            <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Language:</label>
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              type="text"
+              name="language"
+              placeholder="Language"
+              value={language || ''}
+              onChange={handleAccountLanguage}
+            />
+          </div>
         </div>
-        <div style={{ margin: '10px 0' }}>
-          <label>Profile Picture:</label>
-          <input
-            type="file"
-            accept="image/*"
-            name="profile_image"
-            placeholder="profile_image"
-            onChange={(e) => {
-              if (e.target.files) { setProfileImage(e.target.files[0]); }
-            }}
-          />
+        <div className="md:flex md:items-center mb-6">
+          <div className="md:w-full">
+            <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Profile Picture:</label>
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              type="file"
+              accept="image/*"
+              name="profile_image"
+              placeholder="profile_image"
+              onChange={(e) => {
+                if (e.target.files) { setProfileImage(e.target.files[0]); }
+              }}
+            />
+          </div>
         </div>
         <p style={{ color: 'red' }}>{errorMessage || null}</p>
-        <input type="submit" />
+        <input className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit" />
       </form>
     </div>
   );

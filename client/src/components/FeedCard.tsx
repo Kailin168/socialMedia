@@ -99,69 +99,70 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
   };
 
   return (
-    <div className="max-w-lg rounded overflow-hidden shadow-lg">
-      {post.image_url
+    <div>
+      <div className="max-w-lg rounded overflow-hidden shadow-lg">
+        {post.image_url
       && (
       <div className="flex justify-center mt-5">
-        <img className="w-3/4" src={post.image_url} alt="feed" />
+        <img src={post.image_url} alt="feed" />
       </div>
       )}
-      {post.user_id === user.id ? (
-        <button type="button" onClick={handleDeletePost}>
-          {' '}
-          <AiFillDelete />
-          {' '}
-        </button>
-      ) : null }
-
-      <div className="px-6 py-4">
-        <Link to={`/profile/${post.user.id}`}><div className="font-bold text-xl mb-2">{post.user.username}</div></Link>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-        >
-          <button type="button" onClick={handleLikeOrUnlike}>
-            {post.like_count}
+        {post.user_id === user.id ? (
+          <button type="button" onClick={handleDeletePost}>
             {' '}
-            {post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}
+            <AiFillDelete />
+            {' '}
           </button>
-        </div>
-        <p className="text-gray-700 text-base">
-          {post.content ? post.content : ''}
-        </p>
-      </div>
-      <div className="mr-3 ml-3 mb-3">
-        <form
-          onSubmit={handleCommentSubmit}
-          className="mr-3 ml-3 mb-3"
-          style={{
+        ) : null }
+
+        <div className="px-6 py-4">
+          <Link to={`/profile/${post.user.id}`}><div className="font-bold text-xl mb-2">{post.user.username}</div></Link>
+          <div style={{
             display: 'flex',
             flexDirection: 'row',
+            alignItems: 'center',
           }}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              setShowEmoji(!showEmoji);
+          >
+            <button type="button" onClick={handleLikeOrUnlike} className="flex-col">
+              {post.like_count}
+              {' '}
+              {post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}
+            </button>
+          </div>
+          <p className="text-gray-700 text-base">
+            {post.content ? post.content : ''}
+          </p>
+        </div>
+        <div className="mr-3 ml-3 mb-3">
+          <form
+            onSubmit={handleCommentSubmit}
+            className="mr-3 ml-3 mb-3"
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
             }}
           >
-            😀
+            <button
+              type="button"
+              onClick={() => {
+                setShowEmoji(!showEmoji);
+              }}
+            >
+              😀
 
-          </button>
-          <input
-            type="text"
-            name="comment"
-            value={comment || ''}
-            onChange={handleComment}
-            className="resize-y rounded-md block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Leave a comment..."
-          />
-          <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" type="submit" value="Comment" />
-        </form>
-        {formatDistanceToNow(new Date(post.updated_at))}
-        {showEmoji && (
+            </button>
+            <input
+              type="text"
+              name="comment"
+              value={comment || ''}
+              onChange={handleComment}
+              className="resize-y rounded-md block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Leave a comment..."
+            />
+            <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" type="submit" value="Comment" />
+          </form>
+          {formatDistanceToNow(new Date(post.updated_at))}
+          {showEmoji && (
           <div style={{
             position: 'absolute',
           }}
@@ -171,16 +172,17 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
               onEmojiSelect={addEmoji}
             />
           </div>
-        )}
-        <p style={{ color: 'red' }}>{errorMessage || null}</p>
-      </div>
-      <div>
-        {post.comments.map((commentObj: IComment) => (
-          <div key={commentObj.id}>
-            {commentObj.user.username}
-            {commentObj.comment}
-          </div>
-        ))}
+          )}
+          <p style={{ color: 'red' }}>{errorMessage || null}</p>
+        </div>
+        <div>
+          {post.comments.map((commentObj: IComment) => (
+            <div key={commentObj.id}>
+              {commentObj.user.username}
+              {commentObj.comment}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
