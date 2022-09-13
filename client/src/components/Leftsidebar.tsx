@@ -16,7 +16,7 @@ export default function Leftsidebar() {
           <Link to={`/profile/${user.id}`}>
             <img
               className="rounded-full shadow-xl p-1 w-30 h-30"
-              width="150"
+              width="250"
               src={user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL}
               alt="ProfileImage"
             />

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import emojiData from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
+import Constants from '../utils/Constants';
 
 import { AuthContext } from '../contexts/contexts';
 
@@ -107,14 +108,14 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
         <img src={post.image_url} alt="feed" />
       </div>
       )}
-        {post.user_id === user.id ? (
-          <button type="button" onClick={handleDeletePost}>
-            {' '}
-            <AiFillDelete />
-            {' '}
-          </button>
-        ) : null }
-
+        <div className="flex justify-end mr-5 mt-3">
+          {post.user_id === user.id ? (
+            <button type="button" onClick={handleDeletePost} className="flex items-center">
+              <div className="text-red-500"><AiFillDelete /></div>
+              <div className="text-sm">DELETE with caution!</div>
+            </button>
+          ) : null }
+        </div>
         <div className="px-6 py-4">
           <Link to={`/profile/${post.user.id}`}><div className="font-bold text-xl mb-2">{post.user.username}</div></Link>
           <div style={{
@@ -124,8 +125,8 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
           }}
           >
             <button type="button" onClick={handleLikeOrUnlike} className="flex items-center">
-              <div className="flex-row">{post.like_count}</div>
-              <div>{post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}</div>
+              <div className="flex-row mr-3">{post.like_count}</div>
+              <div>{post.i_liked ? <AiFillHeart className="text-red-500" /> : <AiOutlineHeart />}</div>
             </button>
           </div>
           <p className="text-gray-700 text-base">
@@ -155,12 +156,14 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
               name="comment"
               value={comment || ''}
               onChange={handleComment}
-              className="resize-y rounded-md block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="resize-y rounded-md block p-2.5 ml-3 mr-3 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-slate-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Leave a comment..."
             />
             <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" type="submit" value="Comment" />
           </form>
-          {formatDistanceToNow(new Date(post.updated_at))}
+          <div className="ml-3">
+            {formatDistanceToNow(new Date(post.updated_at))}
+          </div>
           {showEmoji && (
           <div style={{
             position: 'absolute',
@@ -174,13 +177,13 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
           )}
           <p style={{ color: 'red' }}>{errorMessage || null}</p>
         </div>
-        <div className="flex-col ml-5 pb-5">
+        <div className="flex-col ml-3 pb-5">
           {post.comments.map((commentObj: IComment) => (
-            <div className="flex" key={commentObj.id}>
-              <h5 className="font-bold">
+            <div className="flex items-center" key={commentObj.id}>
+              <img className="p-1 w-12 h-12 rounded-full ring-gray-300 dark:ring-gray-500" src={commentObj.user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL} alt="profile" />
+              <h5 className="font-bold mr-2">
                 {commentObj.user.username}
               </h5>
-              <p>:</p>
               <p>
                 {commentObj.comment}
               </p>

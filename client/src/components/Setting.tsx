@@ -100,7 +100,7 @@ export default function Setting() {
           </div>
         </div>
       </div>
-      <div className="text-gray-700 text-center text-2xl border-2 m-4 w-3/4">Update Account:</div>
+      <div className="text-gray-700 text-center text-2xl m-4 w-3/4">Update Account:</div>
       <form className="w-full max-w-3xl" onSubmit={handleAccountSubmit}>
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-full">

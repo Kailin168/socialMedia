@@ -38,7 +38,7 @@ export default function SearchBar() {
   return (
     <div>
       <div className="pt-2">
-        <form className="flex justify-end mr-3">
+        <form className="flex justify-end mr-10">
           <label htmlFor="simple-search" className="sr-only">Search</label>
           <div className="relative">
             <div className="flex justify-end absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
