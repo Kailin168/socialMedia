@@ -79,8 +79,8 @@ export default function Feed() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} className="sticky top-0 bg-blue-100 pt-3 pb-3 pr-3 pl-3 rounded-md" style={{ width: '750px' }}>
+    <div className="w-4/5 flex flex-col justify-center">
+      <form onSubmit={handleSubmit} className="sticky top-0 bg-gray-50 pt-3 pb-3 pr-3 pl-3 rounded-md pb-2 mb-8">
         <label htmlFor="message" className="block mb-2 text-xl font-extrabold text-gray-900 dark:text-gray-500">New Post</label>
         <input
           type="text"
@@ -104,10 +104,13 @@ export default function Feed() {
             if (e.target.files) { setMedia(e.target.files[0]); }
           }}
         />
-        <input style={{ cursor: 'pointer' }} className="flex justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mr-5" type="submit" value="Create" />
+        <div className="flex justify-end">
+          <input style={{ cursor: 'pointer' }} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mr-5" type="submit" value="Create" />
+        </div>
+
       </form>
       <p style={{ color: 'red' }}>{errorMessage || null}</p>
-      <div className="flex-col justify-center">
+      <div className="flex flex-col items-center justify-center">
         {
           posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
         }

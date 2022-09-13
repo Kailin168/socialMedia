@@ -15,7 +15,7 @@ export default function Setting() {
   const [country, setCountry] = useState('');
   const [language, setLanguage] = useState('');
 
-  const handleAccountBio = (e: ChangeEvent<HTMLInputElement>) => setBio(e.target.value);
+  // const handleAccountBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => setBio(e.target.value);
   const handleAccountCountry = (e: ChangeEvent<HTMLInputElement>) => setCountry(e.target.value);
   const handleAccountLanguage = (e: ChangeEvent<HTMLInputElement>) => setLanguage(e.target.value);
 
@@ -62,40 +62,56 @@ export default function Setting() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-200 dark:bg-gray-200 dark:hover:bg-gray-200">
-        <img className="object-cover w-full h-full rounded md:h-60 md:w-auto md:rounded-full pl-2 pr-6" src={user.image_url || DEFAULT_PROFILE_IMAGE_URL} alt="feed" />
-        <div className="flex flex-col justify-between p-4 leading-normal">
-          <p className="mb-2 text-2xl font-bold tracking-tight dark:text-slate-700">
-            {user.username}
-          </p>
-          <p className="mb-3 font-normal dark:text-gray-700">
-            {user.name}
-          </p>
-          <div className="mb-3 font-normal dark:text-gray-500">{user.bio}</div>
-          <div className="mb-3 font-normal dark:text-gray-500">
-            {user.email}
+    <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex justify-center">
+        <div className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-3xl hover:bg-gray-100 dark:border-gray-200 dark:bg-gray-200 dark:hover:bg-gray-200 mb-10">
+          <img className="object-cover w-full h-full rounded md:h-60 md:w-auto md:rounded-full pl-2 pr-6" src={user.image_url || DEFAULT_PROFILE_IMAGE_URL} alt="feed" />
+          <div className="flex flex-col justify-between p-4 leading-normal">
+            <p className="mb-2 text-2xl font-bold tracking-tight dark:text-slate-700">
+              Username:
+              {' '}
+              {user.username}
+            </p>
+            <p className="mb-3 font-normal dark:text-gray-700">
+              Full name:
+              {' '}
+              {user.name}
+            </p>
+            <div className="mb-3 font-normal dark:text-gray-500">
+              Bio:
+              {' '}
+              {user.bio}
+            </div>
+            <div className="mb-3 font-normal dark:text-gray-500">
+              Email:
+              {' '}
+              {user.email}
+            </div>
+            <p className="mb-3 font-normal dark:text-gray-500">
+              Country:
+              {' '}
+              {user.country}
+            </p>
+            <p className="mb-3 font-normal dark:text-gray-500">
+              Language:
+              {' '}
+              {user.language}
+            </p>
           </div>
-          <p className="mb-3 font-normal dark:text-gray-500">
-            {user.country}
-          </p>
-          <p className="mb-3 font-normal dark:text-gray-500">
-            {user.language}
-          </p>
         </div>
       </div>
-      <div className="text-gray-700 text-center text-2xl border-2 m-4">Update Account:</div>
-      <form className="w-full max-w-sm" onSubmit={handleAccountSubmit}>
+      <div className="text-gray-700 text-center text-2xl border-2 m-4 w-3/4">Update Account:</div>
+      <form className="w-full max-w-3xl" onSubmit={handleAccountSubmit}>
         <div className="md:flex md:items-center mb-6">
-          <div className="md:full">
+          <div className="md:w-full">
             <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Bio:</label>
-            <input
+            <textarea
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-              type="text"
               name="bio"
               placeholder="Bio"
+              rows={3}
               value={bio || ''}
-              onChange={handleAccountBio}
+              onChange={(e) => setBio(e.target.value)}
             />
           </div>
         </div>
@@ -141,7 +157,9 @@ export default function Setting() {
           </div>
         </div>
         <p style={{ color: 'red' }}>{errorMessage || null}</p>
-        <input className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit" />
+        <div className="flex justify-end">
+          <input className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit" />
+        </div>
       </form>
     </div>
   );

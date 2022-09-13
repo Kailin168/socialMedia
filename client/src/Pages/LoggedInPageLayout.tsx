@@ -9,16 +9,16 @@ interface Props {
 }
 export default function LoggedInPageLayout({ children } : Props) {
   return (
-    <div>
+    <div className="w-screen">
       <Navbar />
-      <div className="flex">
-        <div className="flex-initial w-1/5 ml-10 mt-5">
+      <div className="flex justify-center w-full px-24">
+        <div className="w-1/6 ml-2 mt-5 mr-5">
           <Leftsidebar />
         </div>
-        <div className="flex-none h-screen w-3/5 flex justify-center mt-5 mr-1 ml-1 overflow-auto">
+        <div className="h-screen w-4/6 mt-5 mr-1 ml-1 overflow-auto relative flex flex-col items-center">
           {children}
         </div>
-        <div className="flex-initial w-1/5 mr-10 mt-5 border-solid border-4 border-sky-500 rounded-lg">
+        <div className="w-1/6 mr-2 mt-5 ml-2 ">
           <Rightsidebar />
         </div>
       </div>

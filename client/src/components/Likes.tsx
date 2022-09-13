@@ -41,7 +41,7 @@ export default function Likes() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col w-4/5 items-center justify-center">
       {
         posts.map((post) => <FeedCard key={post.id} post={post} postHasAnUpdate={postHasAnUpdate} />)
       }

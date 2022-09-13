@@ -10,7 +10,7 @@ export default function Leftsidebar() {
   const { user } = useContext(AuthContext);
 
   return (
-    <div>
+    <div className="w-full">
       <div>
         <div className="flex items-center justify-center mb-3">
           <Link to={`/profile/${user.id}`}>

@@ -99,8 +99,8 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
   };
 
   return (
-    <div>
-      <div className="max-w-lg rounded overflow-hidden shadow-lg">
+    <div className="w-4/5">
+      <div className="rounded overflow-hidden shadow-lg">
         {post.image_url
       && (
       <div className="flex justify-center mt-5">
@@ -123,10 +123,9 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
             alignItems: 'center',
           }}
           >
-            <button type="button" onClick={handleLikeOrUnlike} className="flex-col">
-              {post.like_count}
-              {' '}
-              {post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}
+            <button type="button" onClick={handleLikeOrUnlike} className="flex items-center">
+              <div className="flex-row">{post.like_count}</div>
+              <div>{post.i_liked ? <AiFillHeart /> : <AiOutlineHeart />}</div>
             </button>
           </div>
           <p className="text-gray-700 text-base">
@@ -175,11 +174,16 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
           )}
           <p style={{ color: 'red' }}>{errorMessage || null}</p>
         </div>
-        <div>
+        <div className="flex-col ml-5 pb-5">
           {post.comments.map((commentObj: IComment) => (
-            <div key={commentObj.id}>
-              {commentObj.user.username}
-              {commentObj.comment}
+            <div className="flex" key={commentObj.id}>
+              <h5 className="font-bold">
+                {commentObj.user.username}
+              </h5>
+              <p>:</p>
+              <p>
+                {commentObj.comment}
+              </p>
             </div>
           ))}
         </div>
