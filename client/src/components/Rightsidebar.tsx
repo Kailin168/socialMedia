@@ -45,7 +45,7 @@ export default function Rightsidebar() {
         <a href="https://www.yelp.com/biz/b-and-k-fish-mini-market-brooklyn" target="_blank" rel="noreferrer">
           <img src="/willieads.png" alt="ad" />
         </a>
-        <a href="https://github.com/TLCheng11/something-new" target="_blank" rel="noreferrer">
+        <a href="https://buildsomethingnew.herokuapp.com/" target="_blank" rel="noreferrer">
           <img src="/Intro.gif" alt="tonyad" />
         </a>
       </div>

@@ -80,7 +80,7 @@ export default function Feed() {
 
   return (
     <div className="w-4/5 flex flex-col justify-center">
-      <form onSubmit={handleSubmit} className="sticky top-0 bg-gray-50 pt-3 pb-3 pr-3 pl-3 rounded-md pb-2 mb-8">
+      <form onSubmit={handleSubmit} className="sticky top-0 bg-gray-50 pt-3 pr-3 pl-3 pb-2 mb-8 ">
         <label htmlFor="message" className="block mb-2 text-xl font-extrabold text-gray-900 dark:text-gray-500">New Post</label>
         <input
           type="text"

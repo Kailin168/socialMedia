@@ -83,11 +83,11 @@ function CreateAccount() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="w-full max-w-max">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleAccountSubmit}>
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-slate-900" onSubmit={handleAccountSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Name">Name</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="border border-slate-900 shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="name"
               placeholder="Full Name"
@@ -98,7 +98,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Bio">Bio</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="bio"
               placeholder="Bio"
@@ -109,7 +109,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Country">Country</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="country"
               placeholder="Country"
@@ -120,7 +120,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Language">Language</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="language"
               placeholder="Language"
@@ -131,7 +131,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Email">Email</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="email"
               placeholder="e-mail"
@@ -142,7 +142,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Profile Picture">Profile Picture</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="file"
               accept="image/*"
               name="profile_image"
@@ -155,7 +155,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Username">Username</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="username"
               placeholder="username"
@@ -166,7 +166,7 @@ function CreateAccount() {
           <div style={{ margin: '10px 0' }}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Password">Password</label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className=" border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="password"
               name="password"
               placeholder="password"

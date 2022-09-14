@@ -56,12 +56,12 @@ function SignIn() {
       <div className="flex flex-col">
         <div className="w-full max-w-xs">
           <img src="/lgtitle.png" alt="ad" className="items-center mt-4 mb-10 justify-center" />
-          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-slate-900" onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+              <label className="block text-gray-700 text-sm font-bold mb-2 border-slate-900" htmlFor="username">
                 Username
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   name="username"
                   placeholder="username"
@@ -74,7 +74,7 @@ function SignIn() {
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                 Password
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                  className="border-slate-900 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                   type="password"
                   name="password"
                   placeholder="password"

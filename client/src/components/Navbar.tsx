@@ -19,13 +19,13 @@ export default function Navbar() {
           <div className="w-1/3 min-w-fit flex justify-center">
             <ul className="flex text-white bg-blue-500 mx-auto text-2xl">
               <button type="button" onClick={() => navigate('/')} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Home</button>
-              <button type="button" onClick={() => navigate('/message')} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Message</button>
+              {/* <button type="button" onClick={() => navigate('/message')} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Message</button> */}
               <button type="button" onClick={() => navigate('/likes')} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Likes</button>
               <button type="button" onClick={() => navigate('/setting')} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Setting</button>
               <button type="button" onClick={handleLogout} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Sign Out</button>
             </ul>
           </div>
-          <div className="w-1/3 flex justify-end font-semibold mr-5"> CSS STYLE EST. 1996 </div>
+          <div className="w-1/3 flex justify-end font-semibold mr-5"> WECONNECT CSS STYLE EST. 1996 </div>
         </div>
       </div>
       <SearchBar />

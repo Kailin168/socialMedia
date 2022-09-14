@@ -15,7 +15,6 @@ export default function Setting() {
   const [country, setCountry] = useState('');
   const [language, setLanguage] = useState('');
 
-  // const handleAccountBio = (e: React.ChangeEvent<HTMLTextAreaElement>) => setBio(e.target.value);
   const handleAccountCountry = (e: ChangeEvent<HTMLInputElement>) => setCountry(e.target.value);
   const handleAccountLanguage = (e: ChangeEvent<HTMLInputElement>) => setLanguage(e.target.value);
 
@@ -106,7 +105,7 @@ export default function Setting() {
           <div className="md:w-full">
             <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Bio:</label>
             <textarea
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              className="bg-gray-200 appearance-none border-2 border-gray-900 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
               name="bio"
               placeholder="Bio"
               rows={3}
@@ -119,7 +118,7 @@ export default function Setting() {
           <div className="md:w-full">
             <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Country:</label>
             <input
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              className="bg-gray-200 appearance-none border-2 border-gray-900 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
               type="text"
               name="country"
               placeholder="Country"
@@ -132,7 +131,7 @@ export default function Setting() {
           <div className="md:w-full">
             <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Language:</label>
             <input
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              className="bg-gray-200 appearance-none border-2 border-gray-900 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
               type="text"
               name="language"
               placeholder="Language"
@@ -145,7 +144,7 @@ export default function Setting() {
           <div className="md:w-full">
             <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">Profile Picture:</label>
             <input
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+              className="bg-gray-200 appearance-none border-2 border-gray-900 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
               type="file"
               accept="image/*"
               name="profile_image"

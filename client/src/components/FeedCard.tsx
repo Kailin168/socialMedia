@@ -100,7 +100,7 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
   };
 
   return (
-    <div className="w-4/5">
+    <div className="w-4/5 border-slate-500 border my-2 rounded-xl">
       <div className="rounded overflow-hidden shadow-lg">
         {post.image_url
       && (

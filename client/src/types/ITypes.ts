@@ -11,7 +11,8 @@ export interface IUser {
   liked_posts: IPost[],
   image_url: string,
   username: string,
-  i_am_following: boolean
+  i_am_following: boolean,
+  created_at: string
 }
 
 export const EmptyUserValue = {
@@ -28,6 +29,7 @@ export const EmptyUserValue = {
   image_url: '',
   username: '',
   i_am_following: false,
+  created_at: '',
 } as IUser;
 
 export interface ILike {
