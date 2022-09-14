@@ -2,13 +2,11 @@ export interface IUser {
   bio: string,
   country: string,
   email: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   followee_count: number,
   follower_count: number,
   id: number,
   language: string,
   name: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   posts: IPost[],
   liked_posts: IPost[],
   image_url: string,
@@ -25,7 +23,6 @@ export const EmptyUserValue = {
   id: -1,
   language: '',
   name: '',
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   posts: [],
   liked_posts: [],
   image_url: '',

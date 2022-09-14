@@ -6,7 +6,7 @@ import SignIn from './Pages/SignIn';
 import CreateAccount from './Pages/CreateAccount';
 import NotFound from './Pages/NotFound';
 import LoggedInPageLayout from './Pages/LoggedInPageLayout';
-import Notifications from './components/Notification';
+import Message from './components/Message';
 import Likes from './components/Likes';
 import Setting from './components/Setting';
 import ProfileDetails from './components/ProfileDetails';
@@ -31,7 +31,7 @@ function App() {
         <LoggedInPageLayout>
           <Routes>
             <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+            <Route path="/message" element={<ProtectedRoute><Message /></ProtectedRoute>} />
             <Route path="/likes" element={<ProtectedRoute><Likes /></ProtectedRoute>} />
             <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
             <Route path="/profile/:userId" element={<ProtectedRoute><ProfileDetails /></ProtectedRoute>} />

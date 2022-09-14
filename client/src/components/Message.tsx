@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Notification() {
+export default function Message() {
   return (
     <div>
-      Alert
+      Message
     </div>
   );
 }
