@@ -163,6 +163,8 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
           </form>
           <div className="ml-3">
             {formatDistanceToNow(new Date(post.updated_at))}
+            {' '}
+            ago
           </div>
           {showEmoji && (
           <div style={{

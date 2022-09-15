@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, FormEvent, ChangeEvent,
+  useEffect, useState, FormEvent, ChangeEvent, useRef,
 } from 'react';
 
 import { AiFillFileImage } from 'react-icons/ai';
@@ -12,6 +12,7 @@ export default function Feed() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [media, setMedia] = useState<File | null>(null);
+  const ref = useRef<any>();
 
   const handleContent = (e: ChangeEvent<HTMLInputElement>) => setContent(e.target.value);
 
@@ -50,6 +51,7 @@ export default function Feed() {
           res.json()
             .then(() => {
               setErrorMessage('');
+              fetchFromServer();
             });
         } else {
           res.json()
@@ -60,6 +62,7 @@ export default function Feed() {
       });
     setContent('');
     setMedia(null);
+    ref.current.value = '';
   };
 
   const postHasAnUpdate = (updatedPost?: IPost, updateServer = true, updateClient = true) => {
@@ -100,6 +103,7 @@ export default function Feed() {
           accept="image/*"
           name="media"
           placeholder="media"
+          ref={ref}
           onChange={(e) => {
             if (e.target.files) { setMedia(e.target.files[0]); }
           }}
