@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :likes
   has_many :liked_posts, through: :likes, source: :post
   has_many :comments
+  has_many :messages
 
 
   has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'

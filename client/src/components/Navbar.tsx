@@ -25,7 +25,7 @@ export default function Navbar() {
               <button type="button" onClick={handleLogout} className="py-5 px-10 font-semibold hover:text-slate-900 transition duration-300">Sign Out</button>
             </ul>
           </div>
-          <div className="w-1/3 flex justify-end font-semibold mr-5"> WECONNECT CSS STYLE EST. 1996 </div>
+          <div className="w-1/3 flex justify-end font-semibold mr-5" />
         </div>
       </div>
       <SearchBar />

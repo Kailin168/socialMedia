@@ -125,7 +125,11 @@ export default function FeedCard({ post, postHasAnUpdate }: Props) {
           }}
           >
             <button type="button" onClick={handleLikeOrUnlike} className="flex items-center">
-              <div className="flex-row mr-3">{post.like_count}</div>
+              <div className="flex-row mr-3">
+                {post.like_count}
+                {' '}
+                likes
+              </div>
               <div>{post.i_liked ? <AiFillHeart className="text-red-500" /> : <AiOutlineHeart />}</div>
             </button>
           </div>
