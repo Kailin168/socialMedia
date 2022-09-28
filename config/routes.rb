@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+  resources :messages
   resources :likes
   resources :follows
   resources :comments
   resources :posts
   resources :users
+
+  resources :chats, only: [:index] do
+    resources :messages, only: [:index, :create]
+  end
   
   post '/users/:id/follow', to: "users#follow", as: "follow_user"
   

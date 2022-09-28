@@ -58,3 +58,14 @@ export interface IPost {
   comments: IComment[]
   user: IUser
 }
+
+export interface IMessage {
+  id:number;
+  user_id:number;
+  content:string;
+  user: IUser
+}
+
+export interface IChat {
+  id:number;
+}

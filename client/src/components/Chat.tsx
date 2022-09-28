@@ -1,103 +1,94 @@
-import React, { useEffect, useState, useRef } from 'react'
-import ChatInput from './ChatInput'
+import React, {
+  useEffect, useState, useContext, FormEvent,
+} from 'react';
+import ChatMessages from './ChatMessages';
+import ChatForm from './ChatForm';
+import { ActionCableContext } from '../contexts/contexts';
+import { IMessage, IChat } from '../types/ITypes';
 
-function Chat({ user, recipient, cable }) {
-  const [messages, setMessages] = useState([]) 
+function Chat() {
+  // state for chat messages
+  const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
+  const [chatRooms, setChatRooms] = useState<IChat[]>([]);
+  const [currentRoomId, setCurrentRoomId] = useState(-1);
+
+  const [chatInput, setChatInput] = useState('');
+
+  const { cable } = useContext(ActionCableContext);
+
+  // on load get the available rooms
+  useEffect(() => {
+    fetch('/chats')
+      .then((res) => {
+        if (res.ok) {
+          res.json()
+            .then((data) => {
+              setChatRooms(data);
+              setCurrentRoomId(data[0].id);
+            });
+        }
+      });
+  }, []);
+
+  // on load get all chats for a room (we'll change this to current room later)
+  useEffect(() => {
+    fetch(`/chats/${currentRoomId}/messages`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.status !== 500) {
+          setChatMessages(data);
+        }
+      });
+  }, [currentRoomId]);
 
   useEffect(() => {
-    if (user.id) {
-      fetch(`/api/users/${user.id}/message_history`, {
-        method: 'POST',
-        headers: {import React, { useEffect, useState, useRef } from 'react'
-        import ChatInput from './ChatInput'
-        
-        function Chat({ user, recipient, cable }) {
-          const [messages, setMessages] = useState([]) 
-        
-          useEffect(() => {
-            if (user.id) {
-              fetch(`/api/users/${user.id}/message_history`, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  sender_id: user.id,
-                  recipient_id: recipient.id, 
-                })
-              })
-              .then((r) => {
-                if (r.ok) {
-                  r.json().then((data) => {
-                    setMessages(data)
-                  })
-                }
-              })
-            }    
-          }, [user.id, recipient.id, setMessages])
-        
-          useEffect(() => {    
-            if (user.id) {
-              cable.subscriptions.create
-              (
-                {
-                  channel: 'ChatsChannel',
-                  user_id: user.id,
-                  recipient_id: recipient.id
-                },
-                {
-                  received: (message) => {
-                    setMessages([...messages, message])
-                  }
-                }
-              )
-            }
-          }, [user.id, cable.subscriptions, recipient.id, setMessages, messages])
-        
-          return (
-            // JSX to display the chat history...
-          )
-        }
-        
-        export default Chat
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          sender_id: user.id,
-          recipient_id: recipient.id, 
-        })
-      })
-      .then((r) => {
-        if (r.ok) {
-          r.json().then((data) => {
-            setMessages(data)
-          })
-        }
-      })
-    }    
-  }, [user.id, recipient.id, setMessages])
+    const channel = cable.subscriptions.create(
+      { channel: 'ChatroomChannel', chat_id: currentRoomId },
+      { received: (newMessage) => setChatMessages((previousMessages) => [...previousMessages, newMessage]) },
+    );
 
-  useEffect(() => {    
-    if (user.id) {
-      cable.subscriptions.create
-      (
-        {
-          channel: 'ChatsChannel',
-          user_id: user.id,
-          recipient_id: recipient.id
-        },
-        {
-          received: (message) => {
-            setMessages([...messages, message])
-          }
-        }
-      )
-    }
-  }, [user.id, cable.subscriptions, recipient.id, setMessages, messages])
+    return () => channel.unsubscribe();
+  }, [currentRoomId]);
+
+  // ---------------------- //
+  // for the subscriptions (connection)
+  // we can unsubscribe with channel.unsubscribe()
+  // we'll probably put the above into a useEffect
+  // ---------------------- //
+
+  // we need a handle submit for when we submit a new chat...
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    fetch(`/chats/${currentRoomId}/messages`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accepts: 'application/json',
+      },
+      body: JSON.stringify({ content: chatInput }),
+    });
+  };
+
+  const chatRoomOptions = chatRooms.map((r) => <option key={r.id} value={r.id} aria-label={r.id.toString()} />);
+  // chatRoomOptions.unshift(<option key={-1} value={-1} aria-label="No chatroom selected" />);
 
   return (
-    // JSX to display the chat history...
-  )
+    <div>
+
+      <ChatMessages chatMessages={chatMessages} />
+      <ChatForm setInput={setChatInput} input={chatInput} handleSubmit={handleSubmit} />
+
+      {/* The select tag here is to choose the current room once we implement that */}
+      <select
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCurrentRoomId(parseInt(e.target.value, 10))}
+        value={currentRoomId}
+      >
+        { chatRoomOptions }
+      </select>
+
+    </div>
+  );
 }
 
-export default Chat
+export default Chat;
