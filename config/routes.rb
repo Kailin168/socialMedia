@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :user_chats
   mount ActionCable.server => '/cable'
-  resources :messages, only: [:create]
+  resources :messages, only: [:create, :index]
   resources :likes
   resources :follows
   resources :comments
@@ -51,5 +51,7 @@ Rails.application.routes.draw do
 
   get '/chats_chatroom', to: 'chats#chatroom'
   
+  get '/chats_chatroom', to: 'chats#chatroom'
+
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end

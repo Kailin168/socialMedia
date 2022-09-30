@@ -1,10 +1,14 @@
 class ChatroomChannel < ApplicationCable::Channel
   def subscribed
     stop_all_streams
-    stream_from "chatroom_#{params[:user_id]}#{params[:recipient_id]}"
+    @channel = "chatroom_#{params[:chat_id]}"
+    @user = params[:id]
+    stream_from @channel
+    ActionCable.server.broadcast(@channel, "#{@user} joined the channel")
   end
 
   def unsubscribed
+    ActionCable.server.broadcast(@channel, "#{@user} left the channel")
     stop_all_streams
     # Any cleanup needed when channel is unsubscribed
     puts "=================================================="
