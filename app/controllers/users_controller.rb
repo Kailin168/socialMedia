@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy feed liked_post discover]
+  before_action :set_user, only: %i[ show update destroy feed liked_post discover followed]
 
   # GET /users
   def index
@@ -43,7 +43,10 @@ class UsersController < ApplicationController
 #pluck id is going into the User array and just taking the id # for that user
   end 
 
-
+  def followed
+    render json: @user.followees
+#pluck id is going into the User array and just taking the id # for that user
+  end 
   
 
   def follow

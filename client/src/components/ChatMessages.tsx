@@ -7,7 +7,7 @@ interface Props {
 
 function ChatMessages({ chatMessages }:Props) {
   return (
-    <div>
+    <div className="w-3/4 h-4/5 bg-slate-600 overflow-auto">
 
       {chatMessages.map((message) => (
         <p key={message.id}>

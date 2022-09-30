@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
 
   get '/discover_new_people', to: "users#discover"
+  
+  get '/message_followed_people', to: "users#followed"
 
   post '/post/like', to: "posts#like"
 

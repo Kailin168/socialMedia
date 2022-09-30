@@ -14,7 +14,9 @@ export const AuthContext = createContext({
 
 export const DiscoverContext = createContext({
   discoverUsers: [] as IUser[],
+  followedUsers: [] as IUser[],
   fetchDiscoverUsers: () => {},
+  fetchFollowedUsers: () => {},
 });
 
 export const ActionCableContext = createContext<{
