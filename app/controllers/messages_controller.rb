@@ -20,7 +20,7 @@ class MessagesController < ApplicationController
   end
 
   def find_chat
-    @chat ||= chat.find_by(id: params[:chat_id])
+    @chat ||= Chat.find_by(id: params[:chat_id])
   end
 
 end

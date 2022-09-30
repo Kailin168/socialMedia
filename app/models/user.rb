@@ -14,7 +14,9 @@ class User < ApplicationRecord
   has_many :followers, through: :following_users
 
   has_many :messages
-  has_many :chats, through: :messages
+
+  has_many :user_chats
+  has_many :chats, through: :user_chats
 
 
   validates :username, :email, uniqueness: true

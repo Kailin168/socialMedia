@@ -22,12 +22,12 @@ function Chat() {
               <li className="py-3 sm:py-4">
                 <div className="flex items-center justify-center">
                   <div className="flex-shrink-0 overflow-auto">
-                    {followedUsers.length === 0 ? <span>No One to Chat to</span> : followedUsers.map((user) => (
-                      <div key={user.id}>
-                        <Link to={`/chatroom/${user.id}`}>
+                    {followedUsers.length === 0 ? <span>No One to Chat to</span> : followedUsers.map((otherUser) => (
+                      <div key={otherUser.id}>
+                        <Link to={`/chatroom/${otherUser.id}`}>
                           <div className="flex items-center rounded-md m-2 pt-2 pb-2 pr-8 pl-8 hover:bg-gray-200">
-                            <img className="p-1 w-12 h-12 rounded-full ring-gray-300 dark:ring-gray-500" src={user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL} alt="profile" />
-                            <div className="text-xl font-medium text-gray-900 truncate dark:text-slate-700">{user.username}</div>
+                            <img className="p-1 w-12 h-12 rounded-full ring-gray-300 dark:ring-gray-500" src={otherUser.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL} alt="profile" />
+                            <div className="text-xl font-medium text-gray-900 truncate dark:text-slate-700">{otherUser.username}</div>
                           </div>
                         </Link>
                       </div>

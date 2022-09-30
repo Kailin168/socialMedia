@@ -1,13 +1,14 @@
 import React, {
   useEffect, useState, useContext, FormEvent,
 } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import ChatMessages from './ChatMessages';
 import ChatForm from './ChatForm';
 import { ActionCableContext } from '../contexts/contexts';
 import { IMessage, IChat } from '../types/ITypes';
 
 function Chatroom() {
+  const params = useParams()
   const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
   const [chatRooms, setChatRooms] = useState<IChat[]>([]);
   const [currentRoomId, setCurrentRoomId] = useState(-1);
@@ -23,37 +24,38 @@ function Chatroom() {
   }, [location.pathname]);
 
   useEffect(() => {
-    fetch('/chats')
+    fetch(`/chats_chatroom?user_id=${params.otherUserId}`)
       .then((res) => {
         if (res.ok) {
           res.json()
             .then((data) => {
-              setChatRooms(data);
-              setCurrentRoomId(data[0].id);
+              console.log(data)
+              // setChatRooms(data);
+              // setCurrentRoomId(data[0].id);
             });
         }
       });
   }, []);
 
   // on load get all chats for a room (we'll change this to current room later)
-  useEffect(() => {
-    fetch(`/chats/${currentRoomId}/messages`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.status !== 500) {
-          setChatMessages(data);
-        }
-      });
-  }, [currentRoomId]);
+  // useEffect(() => {
+  //   fetch(`/chats/${currentRoomId}/messages`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data?.status !== 500) {
+  //         setChatMessages(data);
+  //       }
+  //     });
+  // }, [currentRoomId]);
 
-  useEffect(() => {
-    const channel = cable.subscriptions.create(
-      { channel: 'ChatroomChannel', chat_id: currentRoomId },
-      { received: (newMessage) => setChatMessages((previousMessages) => [...previousMessages, newMessage]) },
-    );
+  // useEffect(() => {
+  //   const channel = cable.subscriptions.create(
+  //     { channel: 'ChatroomChannel', chat_id: currentRoomId },
+  //     { received: (newMessage) => setChatMessages((previousMessages) => [...previousMessages, newMessage]) },
+  //   );
 
-    return () => channel.unsubscribe();
-  }, [currentRoomId]);
+  //   return () => channel.unsubscribe();
+  // }, [currentRoomId]);
 
   // ---------------------- //
   // for the subscriptions (connection)
