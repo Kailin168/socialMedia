@@ -4,7 +4,7 @@ class Message < ApplicationRecord
   belongs_to :user
 
   def broadcast
-    ActionCable.server.broadcast("chat#{self.chat_id}", MessageSerializer.new(self))
+    ActionCable.server.broadcast("chatroom_#{self.chat.name}", MessageSerializer.new(self))
   end
 
 end

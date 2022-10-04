@@ -1,16 +1,15 @@
 import React, {
   useEffect, useState, useContext, FormEvent,
 } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ChatMessages from './ChatMessages';
 import ChatForm from './ChatForm';
 import { ActionCableContext, AuthContext } from '../contexts/contexts';
-import { IMessage, IChat } from '../types/ITypes';
+import { IMessage } from '../types/ITypes';
 
 function Chatroom() {
   const params = useParams();
   const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
-  const [chatRooms, setChatRooms] = useState<IChat[]>([]);
   const [chatChannel, setChatChannel] = useState<string>('');
 
   const [chatInput, setChatInput] = useState('');
@@ -18,12 +17,6 @@ function Chatroom() {
   const { user } = useContext(AuthContext);
 
   const { cable } = useContext(ActionCableContext);
-  // const location = useLocation();
-  // useEffect(() => {
-  //   if (location.pathname.includes('/profile/')) {
-  //     fetchFromServer();
-  //   }
-  // }, [location.pathname]);
 
   useEffect(() => {
     fetch(`/chats_chatroom?user_id=${params.otherUserId}`)
@@ -31,7 +24,6 @@ function Chatroom() {
         if (res.ok) {
           res.json()
             .then((data) => {
-              // setChatRooms(data);
               setChatChannel(data.name);
             });
         }
@@ -55,7 +47,7 @@ function Chatroom() {
     )
       .then((res) => {
         if (res?.status !== 500 && res?.status !== 404) {
-          res.json();
+          return res.json();
         }
         return null;
       })
@@ -69,13 +61,14 @@ function Chatroom() {
   useEffect(() => {
     let channel: ActionCable.Channel & { received: (data: string) => void; };
     if (chatChannel) {
-      channel = cable.subscriptions.create(
+      cable.subscriptions.create(
         { channel: 'ChatroomChannel', chat_id: chatChannel, id: user.id },
         // { received: (data: string) => console.log(data) },
         {
-          received: (newMessage) => {
-            // debugger;
-            // setChatMessages((previousMessages) => [...previousMessages, newMessage]);
+          received: (newMessage: IMessage) => {
+            if (newMessage?.content) {
+              setChatMessages((previousMessages) => [...previousMessages, newMessage]);
+            }
           },
         },
       );
@@ -105,6 +98,7 @@ function Chatroom() {
       },
       body: JSON.stringify({ content: chatInput }),
     });
+    setChatInput('');
   };
 
   // const chatRoomOptions = chatRooms.map((r) => <option key={r.id} value={r.id} aria-label={r.id.toString()} />);

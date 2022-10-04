@@ -53,5 +53,8 @@ Rails.application.routes.draw do
   
   get '/chats_chatroom', to: 'chats#chatroom'
 
+  # get '/people_already_chatting', to: 'users#people_already_chatting'
+
+
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end

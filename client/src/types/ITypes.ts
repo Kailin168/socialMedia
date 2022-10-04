@@ -64,6 +64,7 @@ export interface IMessage {
   user_id:number;
   content:string;
   user: IUser
+  created_at: string
 }
 
 export interface IChat {

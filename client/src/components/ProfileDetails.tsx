@@ -81,7 +81,7 @@ export default function ProfileDetails() {
   };
 
   function handleClick() {
-    navigate(`/message/${params.userId}`);
+    navigate(`/chatroom/${params.userId}`);
   }
 
   return (
