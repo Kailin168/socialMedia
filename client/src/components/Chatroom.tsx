@@ -8,22 +8,22 @@ import { ActionCableContext, AuthContext } from '../contexts/contexts';
 import { IMessage, IChat } from '../types/ITypes';
 
 function Chatroom() {
-  const params = useParams()
+  const params = useParams();
   const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
   const [chatRooms, setChatRooms] = useState<IChat[]>([]);
-  const [chatChannel, setChatChannel] = useState<string>("");
+  const [chatChannel, setChatChannel] = useState<string>('');
 
   const [chatInput, setChatInput] = useState('');
 
   const { user } = useContext(AuthContext);
 
   const { cable } = useContext(ActionCableContext);
-  const location = useLocation();
-  useEffect(() => {
-    if (location.pathname.includes('/profile/')) {
-      fetchFromServer();
-    }
-  }, [location.pathname]);
+  // const location = useLocation();
+  // useEffect(() => {
+  //   if (location.pathname.includes('/profile/')) {
+  //     fetchFromServer();
+  //   }
+  // }, [location.pathname]);
 
   useEffect(() => {
     fetch(`/chats_chatroom?user_id=${params.otherUserId}`)
@@ -40,10 +40,27 @@ function Chatroom() {
 
   // on load get all chats for a room (we'll change this to current room later)
   useEffect(() => {
-    fetch(`/chats/${chatChannel}/messages`)
-      .then((res) => res.json())
+    if (chatChannel === '') {
+      return;
+    }
+
+    fetch(
+      `/chats/${chatChannel}/messages`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accepts: 'application/json',
+        },
+      },
+    )
+      .then((res) => {
+        if (res?.status !== 500 && res?.status !== 404) {
+          res.json();
+        }
+        return null;
+      })
       .then((data) => {
-        if (data?.status !== 500) {
+        if (data) {
           setChatMessages(data);
         }
       });
@@ -55,7 +72,12 @@ function Chatroom() {
       channel = cable.subscriptions.create(
         { channel: 'ChatroomChannel', chat_id: chatChannel, id: user.id },
         // { received: (data: string) => console.log(data) },
-        { received: (newMessage) => setChatMessages((previousMessages) => [...previousMessages, newMessage]) },
+        {
+          received: (newMessage) => {
+            // debugger;
+            // setChatMessages((previousMessages) => [...previousMessages, newMessage]);
+          },
+        },
       );
     }
     return () => {

@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   resources :user_chats
   mount ActionCable.server => '/cable'
-  resources :messages, only: [:create, :index]
+ 
   resources :likes
   resources :follows
   resources :comments
   resources :posts
   resources :users
 
-  resources :chats, only: [:index] do
+  resources :chats, only: [:index, :create] do
     resources :messages, only: [:index, :create]
   end
   
