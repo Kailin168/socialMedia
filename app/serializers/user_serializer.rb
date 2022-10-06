@@ -4,7 +4,11 @@ class UserSerializer < ActiveModel::Serializer
   has_many :posts
 
   def i_am_following
-    self.object.i_am_following?(@instance_options[:scope][:id])
+    if @instance_options[:scope] != nil
+      self.object.i_am_following?(@instance_options[:scope][:id])
+    else
+      false
+    end
   end
 
   def image_url

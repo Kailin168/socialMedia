@@ -1,23 +1,25 @@
 Rails.application.routes.draw do
-  mount ActionCable.server => "/cable"
-  
-  resources :rooms
-  resources :messages
+  resources :user_chats
+  mount ActionCable.server => '/cable'
+ 
   resources :likes
   resources :follows
   resources :comments
   resources :posts
   resources :users
 
-  resources :rooms, only: [:index] do
+  resources :chats, only: [:index, :create] do
     resources :messages, only: [:index, :create]
   end
   
+
   post '/users/:id/follow', to: "users#follow", as: "follow_user"
   
   post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
 
   get '/discover_new_people', to: "users#discover"
+  
+  get '/message_followed_people', to: "users#followed"
 
   post '/post/like', to: "posts#like"
 
@@ -46,6 +48,13 @@ Rails.application.routes.draw do
   get '/me', to: 'sessions#show'
 
   delete '/logout', to: 'sessions#destroy'
+
+  get '/chats_chatroom', to: 'chats#chatroom'
   
+  get '/chats_chatroom', to: 'chats#chatroom'
+
+  # get '/people_already_chatting', to: 'users#people_already_chatting'
+
+
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end

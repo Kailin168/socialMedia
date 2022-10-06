@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show update destroy feed liked_post discover]
+  before_action :set_user, only: %i[ show update destroy feed liked_post discover followed]
 
   # GET /users
   def index
@@ -43,7 +43,11 @@ class UsersController < ApplicationController
 #pluck id is going into the User array and just taking the id # for that user
   end 
 
-
+  def followed
+    render json: (self.people_already_chatting + @user.followees).uniq { |user| user.id }
+    # render json: @user.followees
+#pluck id is going into the User array and just taking the id # for that user
+  end 
   
 
   def follow
@@ -73,6 +77,14 @@ class UsersController < ApplicationController
   def liked_post
     render json: @user.liked_posts
   end
+
+  def people_already_chatting
+    new = current_user.chats.pluck(:chat_id)
+    existing_chat_user_id = UserChat.where.not(user_id: current_user.id).where(chat_id: new).pluck(:user_id)
+    existing_chat_user = User.where(id: existing_chat_user_id)
+    existing_chat_user
+    end
+    
 
   private
     # Use callbacks to share common setup or constraints between actions.

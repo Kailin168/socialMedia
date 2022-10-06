@@ -26,8 +26,8 @@ export default function Rightsidebar() {
                     <div key={user.id}>
                       <Link to={`/profile/${user.id}`}>
                         <div className="flex items-center rounded-md m-2 pt-2 pb-2 pr-8 pl-8 hover:bg-gray-200">
-                          <img className="p-1 w-12 h-12 rounded-full ring-gray-300 dark:ring-gray-500" src={user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL} alt="profile" />
-                          <div className="text-xl font-medium text-gray-900 truncate dark:text-slate-700">{user.username}</div>
+                          <img className="p-1 w-10 h-10 rounded-full ring-gray-300 dark:ring-gray-500" src={user.image_url || Constants.DEFAULT_PROFILE_IMAGE_URL} alt="profile" />
+                          <div className="text-lg font-small text-gray-900 truncate dark:text-slate-700">{user.username}</div>
                         </div>
                       </Link>
                     </div>
