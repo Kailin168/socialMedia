@@ -105,7 +105,7 @@ function Chatroom() {
   // chatRoomOptions.unshift(<option key={-1} value={-1} aria-label="No chatroom selected" />);
 
   return (
-    <div>
+    <div className="flex flex-col w-full h-4/6">
       <ChatMessages chatMessages={chatMessages} />
       <ChatForm setInput={setChatInput} input={chatInput} handleSubmit={handleSubmit} />
 

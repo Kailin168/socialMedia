@@ -13,9 +13,9 @@ function Chat() {
   }, []);
 
   return (
-    <div className="w-full border rounded border-blue-700 flex flex-col justify-center">
-      <div className="flex flex-col h-full">
-        <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md dark:bg-gray-50 dark:border-gray-100 overflow-auto">
+    <div className="w-full flex flex-col justify-center">
+      <div className="flex flex-col h-screen items-center ">
+        <div className="p-4 w-full h-screen max-w-md bg-white rounded-lg border shadow-md dark:bg-gray-50 dark:border-gray-100 overflow-auto">
           <h5 className="text-3xl font-bold leading-none text-gray-900 dark:text-slate-700 flex justify-center">Start Chatting</h5>
           <div className="flow-root">
             <ul className="divide-y divide-gray-200 dark:divide-gray-700">
