@@ -60,4 +60,10 @@
 #     # password: "please use keys"
 #   }
 
-server '54.210.65.11', user: 'ubuntu', roles: %w{app db web}
+server '54.210.65.11', user: 'ubuntu', roles: %w{app db web},  ssh_options: {
+      user: "ubuntu", # overrides user setting above
+      keys: %w(/Users/kaill/Desktop/Kai8591.pem),
+      forward_agent: false,
+      # auth_methods: %w(publickey password)
+      # password: "please use keys"
+    }

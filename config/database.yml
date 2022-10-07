@@ -83,4 +83,5 @@ production:
   <<: *default
   database: social_media_project_production
   username: social_media_project
-  password: <%= ENV['SOCIAL_MEDIA_PROJECT_DATABASE_PASSWORD'] %>
+  #password: <%= ENV['SOCIAL_MEDIA_PROJECT_DATABASE_PASSWORD'] %>
+  password: social_media_project
