@@ -50,6 +50,7 @@ end
 
 gem "active_model_serializers", "~> 0.10.13"
 
+gem 'passenger'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
