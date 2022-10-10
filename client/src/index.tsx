@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 // eslint-disable-next-line react/jsx-no-constructed-context-values
-const CableApp = { cable: actionCable.createConsumer('ws://localhost:3000/cable') };
+const CableApp = { cable: actionCable.createConsumer(`ws://${window.location.hostname}:3000/cable`) };
 // CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable');
 
 // const CableApp = {};
