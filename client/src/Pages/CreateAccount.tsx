@@ -81,9 +81,9 @@ function CreateAccount() {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="w-full max-w-max">
-        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-slate-900" onSubmit={handleAccountSubmit}>
+    <div className="flex items-center justify-center h-full">
+      <div className="w-full max-w-max max-h-fit">
+        <form className="max-h-fit bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 border border-slate-900" onSubmit={handleAccountSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Name">Name</label>
             <input
