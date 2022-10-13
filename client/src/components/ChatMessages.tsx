@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { IMessage } from '../types/ITypes';
 import { AuthContext } from '../contexts/contexts';
 import Constants from '../utils/Constants';
@@ -9,6 +9,17 @@ interface Props {
 
 function ChatMessages({ chatMessages }:Props) {
   const { user } = useContext(AuthContext);
+
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatMessages]);
+
   return (
     <div className="bg-slate-100 w-full h-3/4 border rounded-md overflow-auto">
 
@@ -25,6 +36,7 @@ function ChatMessages({ chatMessages }:Props) {
           </div>
         </div>
       ))}
+      <div ref={messagesEndRef} />
 
     </div>
   );
