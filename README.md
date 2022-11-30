@@ -2,6 +2,15 @@
 
 - Social media platform that enables users to create custom profiles and interact with other users.
 
+DEMO: http://ec2-54-210-65-11.compute-1.amazonaws.com/
+
+Testing user account:
+
+Username: testing
+Password: testing123
+
+
+
 ## Creator
 
 - [Kai Lin](https://github.com/Kailin168)
